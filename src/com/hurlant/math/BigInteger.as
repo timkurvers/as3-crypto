@@ -8,6 +8,8 @@
  * 		The jsbn library, Copyright (c) 2003-2005 Tom Wu
  * 
  * See LICENSE.txt for full license information.
+ * 
+ * Changes 2010-02-10 Jason von Nieda <jason@vonnieda.org>
  */
 package com.hurlant.math
 {
@@ -47,9 +49,12 @@ package com.hurlant.math
 		public function BigInteger(value:* = null, radix:int = 0, unsigned:Boolean = false) {
 			a = new Array;
 			if (value is String) {
-				if (radix&&radix!=16) throw new Error("BigInteger construction with radix!=16 is not supported.");
-				value = Hex.toArray(value);
-				radix=0;
+				if(radix && radix != 16) {
+					fromRadix(value as String, radix);
+				}else{
+					value = Hex.toArray(value);
+					radix = 0;
+				}
 			}
 			if (value is ByteArray) {
 				var array:ByteArray = value as ByteArray;
@@ -79,7 +84,7 @@ package com.hurlant.math
 				case 16:  k=4; break;
 				case 32:  k=5; break;
 				default:
-//					return toRadix(radix);
+					return toRadix(radix);
 			}
 			var km:int = (1<<k)-1;
 			var d:int = 0;
@@ -190,7 +195,7 @@ package com.hurlant.math
 			var i:int = t;
 			r = i-v.t;
 			if (r!=0) {
-				return r;
+				return (s < 0) ? r * -1 : r;
 			}
 			while (--i >=0) {
 				r=a[i]-v.a[i];
@@ -606,10 +611,11 @@ package com.hurlant.math
 			}
 			return z.revert(r);
 		}
+		
 		bi_internal function intAt(str:String, index:int):int {
-			return parseInt(str.charAt(index), 36);
+			var i:Number = parseInt(str.charAt(index), 36);
+			return isNaN(i) ? -1 : i;
 		}
-
 
 		protected function nbi():* {
 			return new BigInteger;
