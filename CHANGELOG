@@ -1,0 +1,42 @@
+CHANGELOG
+
+v1.3a
+- Fixed AESKey's static initializer
+- Removed all warnings related to missing semi-colons and unused imports
+- Removed tool/IDE-specific files
+- Removed demo files
+- Added LICENSE & CHANGELOG
+- Added test-harness which logs to Flash output
+
+v1.3
+- TLS: partial TLS 1.0 support (RSA only), with TLSSocket and STARTTLS support.
+- cert: Basic X509 (v1 and v2) Certificate parsing and validation
+- cert: Builtin Root CAs, ripped from Mozilla. (see MozillaRootCertificates.as)
+- DER: bug fix in parsing of UTCTime
+- DER: limited support for outputing ASN-1 structures as DER (as little as needed for X509 cert. signing to work.)
+- RSA: support for RSA signing/verifying (needed for TLS cert validation)
+- hash: MD5 and MD2 classes no longer alter their source data
+- secret key: RC4 doesn't reset its state before every encrypt/decrypt operation anymore. If you need that behavior, you need to use .init(key) before each call.
+
+v1.2
+- math: Completed BigInteger support. Moved BigInteger under com.hurlant.math
+- public key: RSA decrypt and key generation
+- crud: basic DER/PEM support to parse RSA keys (X.509 SubjectPublicKeyInfo and PKCS#1 RSAPrivateKey)
+- random: support for TLS-PRF; weak attempt at seeding Random.
+- hash: added MD2. slow legacy stuff.
+- modes: CFB, CFB8 and OFB padding bug fixes
+- secret key: TripeDES bug fix
+
+v1.1
+- secret key: DES, 3DES, BlowFish
+- mode: CTR, SimpleIV
+- added toString() to each algorithm
+- added dispose() to each algorithm. dispose() attempts to clear keys and states from the memory, but it is not guaranteed to work.
+
+v1.0 (Initial release)
+- public key: RSA encrypt
+- secret key: AES, XTEA, RC4
+- hash: MD5, SHA-1, SHA-224, SHA-256
+- HMAC
+- modes: ECB, CBC, CFB, CFB8, OFB
+- converters: Base64, Hex
