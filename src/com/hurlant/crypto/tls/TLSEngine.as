@@ -709,14 +709,14 @@ package com.hurlant.crypto.tls {
 			// This addresses data overflow issues when the packet size hits the max length boundary.
 			if (len == 0) len = data.length;  
 			while (len>16384) {
-				rec.position = 0;
+				rec.position = rec.length = 0;
 				rec.writeBytes(data, offset, 16384);
 				rec.position = 0;
 				sendRecord(PROTOCOL_APPLICATION_DATA, rec);
 				offset += 16384;
 				len -= 16384;
 			}
-			rec.position = 0;
+			rec.position = rec.length = 0;
 			rec.writeBytes(data, offset, len);
 			// trace("Data I'm sending..." + Hex.fromArray( data ));
 			rec.position = 0;
