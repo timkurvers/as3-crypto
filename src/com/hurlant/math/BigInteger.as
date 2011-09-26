@@ -120,7 +120,7 @@ package com.hurlant.math
 		}
 		public function toArray(array:ByteArray):uint {
 			const k:int = 8;
-			const km:int = (1<<8)-1;
+			const km:int = (1 << k)-1;
 			var d:int = 0;
 			var i:int = t;
 			var p:int = DB-(i*DB)%k;
