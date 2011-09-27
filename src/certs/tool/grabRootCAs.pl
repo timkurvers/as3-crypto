@@ -34,7 +34,7 @@ sub der2pem($) {
 }
 
 sub fetchCertData() {
-  system("curl http://lxr.mozilla.org/seamonkey/source/security/nss/lib/ckfw/builtins/certdata.c?raw=1 > certdata.c");
+  system("curl http://mxr.mozilla.org/seamonkey/source/security/nss/lib/ckfw/builtins/certdata.c?raw=1 > certdata.c");
 }
 
 # read Mozilla's generated certdata.c source file
