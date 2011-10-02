@@ -284,6 +284,8 @@ package com.hurlant.crypto.rsa
 					break;
 				}
 			}
+			key.canEncrypt = (key.n != null && key.e != 0);
+			key.canDecrypt = (key.canEncrypt && key.d != null);
 			return key;
 		}
 		
