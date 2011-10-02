@@ -11,6 +11,7 @@
  */
 package com.hurlant.crypto.rsa
 {
+
 	import com.hurlant.crypto.prng.Random;
 	import com.hurlant.math.BigInteger;
 	import com.hurlant.util.Memory;
@@ -57,10 +58,8 @@ package com.hurlant.crypto.rsa
 			// adjust a few flags.
 			canEncrypt = (n!=null&&e!=0);
 			canDecrypt = (canEncrypt&&d!=null);
-			
-			
 		}
-
+
 		public static function parsePublicKey(N:String, E:String):RSAKey {
 			return new RSAKey(new BigInteger(N, 16, true), parseInt(E,16));
 		}
@@ -113,6 +112,11 @@ package com.hurlant.crypto.rsa
 			while (src.position<end) {
 				var block:BigInteger = new BigInteger(pad(src, end, bl, padType), bl, true);
 				var chunk:BigInteger = op(block);
+				
+				for(var b:uint = bl - Math.ceil(chunk.bitLength() / 8); b > 0; --b) {
+					dst.writeByte(0x00);
+				}
+								
 				chunk.toArray(dst);
 			}
 		}
