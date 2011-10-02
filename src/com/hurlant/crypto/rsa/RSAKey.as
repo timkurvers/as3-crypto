@@ -183,8 +183,10 @@ package com.hurlant.crypto.rsa
 		 * 
 		 */
 		private function pkcs1unpad(src:BigInteger, n:uint, type:uint = 0x02):ByteArray {
-			var b:ByteArray = src.toByteArray();
-			var out:ByteArray = new ByteArray;
+			var out:ByteArray = new ByteArray();
+			
+			var b:ByteArray = new ByteArray();
+			src.toArray(b);
 			
 			b.position = 0;
 			var i:int = 0;
