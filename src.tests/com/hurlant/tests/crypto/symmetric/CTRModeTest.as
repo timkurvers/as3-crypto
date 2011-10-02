@@ -6,13 +6,17 @@
  * 
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.crypto.tests
+package com.hurlant.tests.crypto.symmetric
 {
-	import flash.utils.ByteArray;
-	import com.hurlant.util.Hex;
-	import com.hurlant.crypto.symmetric.CTRMode;
+	
+	import com.hurlant.tests.*;
+	
 	import com.hurlant.crypto.symmetric.AESKey;
+	import com.hurlant.crypto.symmetric.CTRMode;
 	import com.hurlant.crypto.symmetric.NullPad;
+	import com.hurlant.util.Hex;
+	
+	import flash.utils.ByteArray;
 	
 	public class CTRModeTest extends TestCase
 	{

@@ -6,8 +6,9 @@
  * 
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.crypto.tests
+package com.hurlant.tests
 {
+	
 	public interface ITestHarness
 	{
 		function beginTestCase(name:String):void;
@@ -17,4 +18,5 @@ package com.hurlant.crypto.tests
 		function passTest():void;
 		function failTest(msg:String):void;
 	}
+	
 }

@@ -6,10 +6,14 @@
  * 
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.crypto.tests
+package com.hurlant.tests.crypto.symmetric
 {
+	
+	import com.hurlant.tests.*;
+	
 	import com.hurlant.crypto.symmetric.DESKey;
 	import com.hurlant.util.Hex;
+	
 	import flash.utils.ByteArray;
 	
 	public class DESKeyTest extends TestCase

@@ -6,8 +6,11 @@
  * 
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.crypto.tests
+package com.hurlant.tests.crypto.rsa
 {
+	
+	import com.hurlant.tests.*;
+	
 	import com.hurlant.crypto.rsa.RSAKey;
 	import com.hurlant.util.Hex;
 	import com.hurlant.util.der.PEM;

@@ -5,10 +5,14 @@
  */
 package com.hurlant.tests {
 
-	import flash.events.Event;
+	import com.hurlant.tests.crypto.hash.*;
+	import com.hurlant.tests.crypto.prng.*;
+	import com.hurlant.tests.crypto.rsa.*;
+	import com.hurlant.tests.crypto.symmetric.*;
+	import com.hurlant.tests.math.*;
+	
 	import flash.display.Sprite;
-
-	import com.hurlant.crypto.tests.*;
+	import flash.events.Event;
 	
 	/**
 	 * as3-crypto unit tests runner

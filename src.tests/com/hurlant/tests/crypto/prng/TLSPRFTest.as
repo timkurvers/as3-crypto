@@ -6,11 +6,15 @@
  * 
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.crypto.tests
+package com.hurlant.tests.crypto.prng
 {
-	import flash.utils.ByteArray;
+	
+	import com.hurlant.tests.*;
+	
 	import com.hurlant.crypto.prng.TLSPRF;
 	import com.hurlant.util.Hex;
+	
+	import flash.utils.ByteArray;
 	
 	public class TLSPRFTest extends TestCase
 	{

@@ -6,8 +6,11 @@
  * 
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.crypto.tests
+package com.hurlant.tests.crypto.hash
 {
+	
+	import com.hurlant.tests.*;
+	
 	import com.hurlant.crypto.hash.MD2;
 	import com.hurlant.util.Hex;
 	

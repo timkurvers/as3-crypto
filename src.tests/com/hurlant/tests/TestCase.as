@@ -6,8 +6,9 @@
  * 
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.crypto.tests
+package com.hurlant.tests
 {
+	
 	public class TestCase 
 	{
 		public var harness:ITestHarness;
@@ -20,7 +21,7 @@ package com.hurlant.crypto.tests
 		
 		public function assert(msg:String, value:Boolean):void {
 			if (value) {
-//				TestHarness.print("+ ",msg);
+				// TestHarness.print("+ ",msg);
 				return;
 			}
 			throw new Error("Test Failure:"+msg);
@@ -39,4 +40,5 @@ package com.hurlant.crypto.tests
 			harness.passTest();
 		}
 	}
+	
 }
