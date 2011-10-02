@@ -75,7 +75,7 @@ package com.hurlant.crypto.tests
 			a = new BigInteger("-987341928347812763498237649812763498172634", 10);
 			assert("<negative mass-bits-value>.toString(10)", a.toString(10) == "-987341928347812763498237649812763498172634");
 			
-			a = new BigInteger("0xffff", 16);
+			a = new BigInteger("0xffff", 16, true);
 			assert("65535.toString(10) == 65535", a.toString(10) == "65535");
 			assert("65535.toString(16) == ffff", a.toString(16) == "ffff");
 		}
