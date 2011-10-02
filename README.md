@@ -16,7 +16,7 @@ list of contributors.
 
 ## Original & GitHub-fork
 
-The original project can be found at [http://code.google.com/p/as3crypto/](http://code.google.com/p/as3crypto/).  
+The original project can be found at [http://code.google.com/p/as3crypto/](http://code.google.com/p/as3crypto/)  
 
 Although unofficial, this GitHub-fork includes community fixes and patches.  
 Consult the CHANGELOG for implemented fixes and contributors.
