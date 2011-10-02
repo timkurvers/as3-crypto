@@ -1,5 +1,18 @@
 CHANGELOG
 
+v1.4
+- Implemented Jason von Nieda's BigInteger bug-fixes and unit-tests (http://groups.google.com/group/as3crypto/browse_thread/thread/92688a271a397bd0)
+- Added Joey Parrish' bug-fixes for TLSEngine.sendApplicationData (http://groups.google.com/group/as3crypto/browse_thread/thread/ce57305fbeaaf08f)
+- Pointed root certificate extractor tool to correct Mozilla domain (mxr.mozilla.org)
+- Updated to latest certificates as of 27th of September
+- Hex-utility will now strip any leading 0x, fixes a NULL-byte prepending bug
+- Fixed BigInteger test-case where high-bits were resulting in unexpected negative numbers
+- Added apostol...@gmail.com's fix for RSAKey's padding failures (http://code.google.com/p/as3crypto/issues/detail?id=59)
+- Implemented andrewwe...@gmail.com's flags-fix for RSAKey.generate (http://code.google.com/p/as3crypto/issues/detail?id=52)
+- Converted all source-files and LICENSE to UNIX line endings
+- Unit-tests now live in their own source folder to greatly decrease library size (~30%)
+- Added README
+
 v1.3a
 - Fixed AESKey's static initializer
 - Removed all warnings related to missing semi-colons and unused imports
