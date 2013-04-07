@@ -1,31 +1,27 @@
-ActionScript 3 Cryptography Library
-===================================
+# ActionScript 3 Cryptography Library
 
 Copyright (c) 2007 Henri Torgemane  
+Modifications (c) 2011 Tim Kurvers and various other contributors
 
-Modifications (c) 2011 Tim Kurvers and various other contributors  
+A cryptography library written in ActionScript 3 that provides several common algorithms. This version also introduces a TLS engine, more commonly known as SSL.
 
-A cryptography library written in ActionScript 3 that provides several  
-common algorithms. This version also introduces a TLS engine, more  
-commonly known as SSL.
-
-Licensed under the **BSD** license. Includes several derivative works from  
-Java, C and JavaScript sources. See LICENSE for more information and a   
-list of contributors.
+Licensed under the **BSD** license. Includes several derivative works from Java, C and JavaScript sources. See LICENSE for more information and a list of contributors.
 
 
 ## Original & GitHub-fork
 
-The original project can be found at [http://code.google.com/p/as3crypto/](http://code.google.com/p/as3crypto/)  
+The original project can be found at [http://code.google.com/p/as3crypto/](http://code.google.com/p/as3crypto/)
 
-Although unofficial, this GitHub-fork includes community fixes and patches.  
+Although unofficial, this GitHub-fork includes community fixes and patches.
+
 Consult the CHANGELOG for implemented fixes and contributors.
 
 
 ## Usage
 
-The binary can be found in **/deploy/as3crypto.swc**. Copy to your libs  
-folder, add it to your class-path and off you go.
+The binary can be found in `/deploy/as3crypto.swc`
+
+Copy to your library folder, add it to your class-path and off you go.
 
 
 ## Features
