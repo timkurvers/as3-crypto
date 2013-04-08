@@ -13,12 +13,8 @@ A cryptography library written in Actionscript 3 that provides several common al
 
 This library is offered under the **BSD** license and includes several derivative works from Java, C and JavaScript sources.
 
-> Copyright (c) 2007 Henri Torgemane
+> Copyright (c) 2007 Henri Torgemane  
 > All Rights Reserved.
->
-> Address all questions regarding this license to:
->
-> > Henri Torgemane <<henri_torgemane@yahoo.com>>
 >
 > BigInteger, RSA, Random and ARC4 are derivative works of the jsbn library
 > (http://www-cs-students.stanford.edu/~tjw/jsbn/)  
@@ -58,6 +54,11 @@ This library is offered under the **BSD** license and includes several derivativ
 > RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER OR NOT ADVISED OF
 > THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF LIABILITY, ARISING OUT
 > OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+Address all questions regarding this license to:
+
+> Henri Torgemane  
+> henri_torgemane@yahoo.com
 
 Additionally, the MD5 algorithm is covered by the following notice:
 
