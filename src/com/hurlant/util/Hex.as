@@ -1,15 +1,16 @@
 /**
  * Hex
- * 
+ *
  * Utility class to convert Hex strings to ByteArray or String types.
  * Copyright (c) 2007 Henri Torgemane
- * 
+ * contributed: Alexander Keck
+ *
  * See LICENSE.txt for full license information.
  */
 package com.hurlant.util
 {
 	import flash.utils.ByteArray;
-	
+
 	public class Hex
 	{
 		/**
@@ -20,47 +21,47 @@ package com.hurlant.util
 		public static function toArray(hex:String):ByteArray {
 			hex = hex.replace(/^0x|\s|:/gm,'');
 			var a:ByteArray = new ByteArray;
-			if (hex.length&1==1) hex="0"+hex;
+			if ((hex.length & 1) == 1) hex="0"+hex;
 			for (var i:uint=0;i<hex.length;i+=2) {
 				a[i/2] = parseInt(hex.substr(i,2),16);
 			}
 			return a;
 		}
-		
-		public static function fromArray(array:ByteArray, colons:Boolean=false):String {
-			var s:String = "";
-			for (var i:uint=0;i<array.length;i++) {
-				s+=("0"+array[i].toString(16)).substr(-2,2);
-				if (colons) {
-					if (i<array.length-1) s+=":";
+
+		public static function fromArray(array : ByteArray, useSeperators : Boolean = false, seperator : String = ':') : String {
+			var s : String = "";
+			for (var i : uint = 0; i < array.length; i++) {
+				s += ("0" + int(array[i]).toString(16)).substr(-2,2);
+				if (useSeperators) {
+					if (i < array.length - 1)
+						s += seperator;
 				}
 			}
 			return s;
 		}
-		
+
 		/**
-		 * 
+		 *
 		 * @param hex
 		 * @return a UTF-8 string decoded from hex
-		 * 
+		 *
 		 */
 		public static function toString(hex:String):String {
 			var a:ByteArray = toArray(hex);
 			return a.readUTFBytes(a.length);
 		}
-		
-		
+
 		/**
-		 * 
+		 *
 		 * @param str
 		 * @return a hex string encoded from the UTF-8 string str
-		 * 
+		 *
 		 */
 		public static function fromString(str:String, colons:Boolean=false):String {
 			var a:ByteArray = new ByteArray;
 			a.writeUTFBytes(str);
 			return fromArray(a, colons);
 		}
-		
+
 	}
 }
