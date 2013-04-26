@@ -163,7 +163,7 @@ package com.hurlant.util.asn1.type {
 					var o:int = s.readUnsignedByte();
 					var v:int = o&0x7F;
 					type = (type<<7) + v;
-				} while (o&0x80!=0);
+				} while ((o&0x80)!=0);
 			}
 			if (classValue!=cv) {
 				// trace("Tag Class Mismatch. expected "+classValue+", found "+cv);
