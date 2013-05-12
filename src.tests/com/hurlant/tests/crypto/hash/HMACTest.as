@@ -1,87 +1,82 @@
 /**
  * HMACTest
- * 
+ *
  * A test class for HMAC
  * Copyright (c) 2007 Henri Torgemane
- * 
+ *
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.tests.crypto.hash
-{
-	
+package com.hurlant.tests.crypto.hash {
+
 	import com.hurlant.tests.*;
-	
+
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.MD5;
 	import com.hurlant.crypto.hash.SHA1;
 	import com.hurlant.crypto.hash.SHA224;
 	import com.hurlant.crypto.hash.SHA256;
 	import com.hurlant.util.Hex;
-	
+
 	import flash.utils.ByteArray;
-	
-	public class HMACTest extends TestCase
-	{
-		public function HMACTest(h:ITestHarness)
-		{
-			super(h, "HMAC Test");
-			runTest(testHMAC_MD5,"HMAC MD5 Test Vectors");
-			runTest(testHMAC_SHA_1,"HMAC SHA-1 Test Vectors");
-			runTest(testHMAC_SHA_2,"HMAC SHA-224/SHA-256 Test Vectors");
-			runTest(testHMAC96_MD5,"HMAC-96 MD5 Test Vectors");
-			runTest(testHMAC96_SHA_1,"HMAC-96 SHA-1 Test Vectors");
-			runTest(testHMAC128_SHA_2,"HMAC-128 SHA-224/SHA-256 Test Vectors");
-			h.endTestCase();
-		}
+
+	public class HMACTest {
+
 		/**
 		 * Test vectors taking from RFC2202
 		 * http://tools.ietf.org/html/rfc2202
 		 * Yes, it's from an RFC, jefe! Now waddayawant?
 		 */
-		public function testHMAC_SHA_1():void {
+		[Test]
+		public function hmac_sha1():void {
 			var keys:Array = [
-			"0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
-			Hex.fromString("Jefe"),
-			"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-			"0102030405060708090a0b0c0d0e0f10111213141516171819",
-			"0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c",
-			"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-			"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"];
+				"0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+				Hex.fromString("Jefe"),
+				"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+				"0102030405060708090a0b0c0d0e0f10111213141516171819",
+				"0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c",
+				"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+				"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+			];
 			var pts:Array = [
-			Hex.fromString("Hi There"),
-			Hex.fromString("what do ya want for nothing?"),
-			"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-			"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
-			Hex.fromString("Test With Truncation"),
-			Hex.fromString("Test Using Larger Than Block-Size Key - Hash Key First"),
-			Hex.fromString("Test Using Larger Than Block-Size Key and Larger Than One Block-Size Data")];
+				Hex.fromString("Hi There"),
+				Hex.fromString("what do ya want for nothing?"),
+				"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+				"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+				Hex.fromString("Test With Truncation"),
+				Hex.fromString("Test Using Larger Than Block-Size Key - Hash Key First"),
+				Hex.fromString("Test Using Larger Than Block-Size Key and Larger Than One Block-Size Data")
+			];
 			var cts:Array = [
-			"b617318655057264e28bc0b6fb378c8ef146be00",
-			"effcdf6ae5eb2fa2d27416d5f184df9c259a7c79",
-			"125d7342b9ac11cd91a39af48aa17b4f63f175d3", 
-			"4c9007f4026250c6bc8414f9bf50c86c2d7235da", 
-			"4c1a03424b55e07fe7f27be1d58bb9324a9a5a04",
-			"aa4ae5e15272d00e95705637ce8a3b55ed402112",
-			"e8e99d0f45237d786d6bbaa7965c7808bbff1a91"];
-			
+				"b617318655057264e28bc0b6fb378c8ef146be00",
+				"effcdf6ae5eb2fa2d27416d5f184df9c259a7c79",
+				"125d7342b9ac11cd91a39af48aa17b4f63f175d3",
+				"4c9007f4026250c6bc8414f9bf50c86c2d7235da",
+				"4c1a03424b55e07fe7f27be1d58bb9324a9a5a04",
+				"aa4ae5e15272d00e95705637ce8a3b55ed402112",
+				"e8e99d0f45237d786d6bbaa7965c7808bbff1a91"
+			];
+
 			var hmac:HMAC = new HMAC(new SHA1());
 			for (var i:uint=0;i<keys.length;i++) {
 				var key:ByteArray = Hex.toArray(keys[i]);
 				var pt:ByteArray = Hex.toArray(pts[i]);
 				var digest:ByteArray = hmac.compute(key, pt);
-				assert("HMAC-SHA-1 test "+i, Hex.fromArray(digest) == cts[i]);
+				assert(Hex.fromArray(digest), cts[i]);
 			}
 		}
-		public function testHMAC96_SHA_1():void {
+
+		[Test]
+		public function hmac96_sha1():void {
 			var hmac:HMAC = new HMAC(new SHA1, 96);
 			var key:ByteArray = Hex.toArray("0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c");
 			var pt:ByteArray = Hex.toArray(Hex.fromString("Test With Truncation"));
 			var ct:String = "4c1a03424b55e07fe7f27be1";
 			var digest:ByteArray = hmac.compute(key, pt);
-			assert("HMAC96-SHA-1 test", Hex.fromArray(digest) == ct);
+			assert(Hex.fromArray(digest), ct);
 		}
-		
-		public function testHMAC_MD5():void {
+
+		[Test]
+		public function hmac_md5():void {
 			var keys:Array = [
 			Hex.fromString("Jefe"),
 			"0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
@@ -101,7 +96,7 @@ package com.hurlant.tests.crypto.hash
 			var cts:Array = [
 			"750c783e6ab0b503eaa86e310a5db738",
 			"9294727a3638bb1c13f48ef8158bfc9d",
-			"56be34521d144c88dbb8c733f0e8b3f6", 
+			"56be34521d144c88dbb8c733f0e8b3f6",
 			"697eaf0aca3a3aea3a75164746ffaa79",
 			"56461ef2342edc00f9bab995690efd4c",
 			"6b1ab7fe4bd7bf8f0b62e6ce61b9d0cd",
@@ -112,24 +107,27 @@ package com.hurlant.tests.crypto.hash
 				var key:ByteArray = Hex.toArray(keys[i]);
 				var pt:ByteArray = Hex.toArray(pts[i]);
 				var digest:ByteArray = hmac.compute(key, pt);
-				assert("HMAC-MD5 test "+i, Hex.fromArray(digest) == cts[i]);
+				assert(Hex.fromArray(digest), cts[i]);
 			}
 		}
-		public function testHMAC96_MD5():void {
+
+		[Test]
+		public function hmac96_md5():void {
 			var hmac:HMAC = new HMAC(new MD5, 96);
 			var key:ByteArray = Hex.toArray("0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c");
 			var pt:ByteArray = Hex.toArray(Hex.fromString("Test With Truncation"));
 			var ct:String = "56461ef2342edc00f9bab995";
 			var digest:ByteArray = hmac.compute(key, pt);
-			assert("HMAC96-MD5 test", Hex.fromArray(digest) == ct);
+			assert(Hex.fromArray(digest), ct);
 		}
-		
+
 		/**
 		 * Test vectors for HMAC-SHA-2 taken from RFC4231
 		 * http://www.ietf.org/rfc/rfc4231.txt
 		 * Still the same lame strings, but hidden in hex. why not.
 		 */
-		public function testHMAC_SHA_2():void {
+		[Test]
+		public function hmac_sha2():void {
 			var keys:Array = [
 			"0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
 			"4a656665",
@@ -166,12 +164,14 @@ package com.hurlant.tests.crypto.hash
 				var key:ByteArray = Hex.toArray(keys[i]);
 				var pt:ByteArray = Hex.toArray(pts[i]);
 				var digest224:ByteArray = hmac224.compute(key, pt);
-				assert("HMAC-SHA-224 test "+i, Hex.fromArray(digest224) == cts224[i]);
+				assert(Hex.fromArray(digest224), cts224[i]);
 				var digest256:ByteArray = hmac256.compute(key, pt);
-				assert("HMAC-SHA-256 test "+i, Hex.fromArray(digest256) == cts256[i]);
+				assert(Hex.fromArray(digest256), cts256[i]);
 			}
 		}
-		public function testHMAC128_SHA_2():void {
+
+		[Test]
+		public function hmac128_sha2():void {
 			var hmac224:HMAC = new HMAC(new SHA224,128);
 			var hmac256:HMAC = new HMAC(new SHA256,128);
 			var key:ByteArray = Hex.toArray("0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c");
@@ -179,9 +179,11 @@ package com.hurlant.tests.crypto.hash
 			var ct224:String = "0e2aea68a90c8d37c988bcdb9fca6fa8";
 			var ct256:String = "a3b6167473100ee06e0c796c2955552b";
 			var digest224:ByteArray = hmac224.compute(key, pt);
-			assert("HMAC128-SHA-224 test", Hex.fromArray(digest224) == ct224);
+			assert(Hex.fromArray(digest224), ct224);
 			var digest256:ByteArray = hmac256.compute(key, pt);
-			assert("HMAC128-SHA-256 test", Hex.fromArray(digest256) == ct256);
+			assert(Hex.fromArray(digest256), ct256);
 		}
+
 	}
+
 }

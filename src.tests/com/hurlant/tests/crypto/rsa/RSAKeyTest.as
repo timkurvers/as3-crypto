@@ -1,43 +1,29 @@
 /**
  * RSAKeyTest
- * 
+ *
  * A test class for RSAKey
  * Copyright (c) 2007 Henri Torgemane
- * 
+ *
  * See LICENSE.txt for full license information.
  */
-package com.hurlant.tests.crypto.rsa
-{
-	
+package com.hurlant.tests.crypto.rsa {
+
 	import com.hurlant.tests.*;
-	
+
 	import com.hurlant.crypto.rsa.RSAKey;
 	import com.hurlant.util.Hex;
 	import com.hurlant.util.der.PEM;
-	
+
 	import flash.utils.ByteArray;
-	
-	public class RSAKeyTest extends TestCase
-	{
-		public function RSAKeyTest(h:ITestHarness)
-		{
-			super(h, "RSA Testing");
-			
-			runTest(testSmoke,"RSA smoke test");
-			runTest(testGenerate, "RSA Key Generation test");
-			runTest(testPEM, "RSA Private Key PEM parsing");
-			runTest(testPEM2, "RSA Public Key PEM parsing");
-			
-			runTest(testAdobeSample, "RSA sample code from Adobe article");
-			runTest(testLongText, "RSA long text encryption/decryption");
-			h.endTestCase();
-		}
-		
-		public function testSmoke():void {
-			var N:String ="C4E3F7212602E1E396C0B6623CF11D26204ACE3E7D26685E037AD2507DCE82FC" + 
+
+	public class RSAKeyTest {
+
+		[Test]
+		public function smoke():void {
+			var N:String ="C4E3F7212602E1E396C0B6623CF11D26204ACE3E7D26685E037AD2507DCE82FC" +
 					"28F2D5F8A67FC3AFAB89A6D818D1F4C28CFA548418BD9F8E7426789A67E73E41";
 			var E:String = "10001";
-			var D:String = "7cd1745aec69096129b1f42da52ac9eae0afebbe0bc2ec89253598dcf454960e" + 
+			var D:String = "7cd1745aec69096129b1f42da52ac9eae0afebbe0bc2ec89253598dcf454960e" +
 					"3e5e4ec9f8c87202b986601dd167253ee3fb3fa047e14f1dfd5ccd37e931b29d";
 			var P:String = "f0e4dd1eac5622bd3932860fc749bbc48662edabdf3d2826059acc0251ac0d3b";
 			var Q:String = "d13cb38fbcd06ee9bca330b4000b3dae5dae12b27e5173e4d888c325cda61ab3";
@@ -53,10 +39,11 @@ package com.hurlant.tests.crypto.rsa
 			rsa.encrypt(src, dst, src.length);
 			rsa.decrypt(dst, dst2, dst.length);
 			var txt2:String = Hex.toString(Hex.fromArray(dst2));
-			assert("rsa encrypt+decrypt", txt==txt2);
+			assert(txt, txt2);
 		}
-		
-		public function testGenerate():void {
+
+		[Test]
+		public function generate():void {
 			var rsa:RSAKey = RSAKey.generate(256, "10001");
 			// same lame smoke test here.
 			var txt:String = "hello";
@@ -66,14 +53,15 @@ package com.hurlant.tests.crypto.rsa
 			rsa.encrypt(src, dst, src.length);
 			rsa.decrypt(dst, dst2, dst.length);
 			var txt2:String = Hex.toString(Hex.fromArray(dst2));
-			assert("rsa encrypt+decrypt", txt==txt2);
+			assert(txt, txt2);
 		}
-		
-		public function testPEM():void {
-			var pem:String = "-----BEGIN RSA PRIVATE KEY-----\n" + 
-					"MGQCAQACEQDJG3bkuB9Ie7jOldQTVdzPAgMBAAECEQCOGqcPhP8t8mX8cb4cQEaR\n" + 
-					"AgkA5WTYuAGmH0cCCQDgbrto0i7qOQIINYr5btGrtccCCQCYy4qX4JDEMQIJAJll\n" + 
-					"OnLVtCWk\n" + 
+
+		[Test]
+		public function pem():void {
+			var pem:String = "-----BEGIN RSA PRIVATE KEY-----\n" +
+					"MGQCAQACEQDJG3bkuB9Ie7jOldQTVdzPAgMBAAECEQCOGqcPhP8t8mX8cb4cQEaR\n" +
+					"AgkA5WTYuAGmH0cCCQDgbrto0i7qOQIINYr5btGrtccCCQCYy4qX4JDEMQIJAJll\n" +
+					"OnLVtCWk\n" +
 					"-----END RSA PRIVATE KEY-----";
 			var rsa:RSAKey = PEM.readRSAPrivateKey(pem);
 			//trace(rsa.dump());
@@ -86,56 +74,60 @@ package com.hurlant.tests.crypto.rsa
 			rsa.encrypt(src, dst, src.length);
 			rsa.decrypt(dst, dst2, dst.length);
 			var txt2:String = Hex.toString(Hex.fromArray(dst2));
-			assert("rsa encrypt+decrypt", txt==txt2);
+			assert(txt, txt2);
 		}
-		public function testPEM2():void {
-			var pem:String = "-----BEGIN PUBLIC KEY-----\n" + 
-					"MCwwDQYJKoZIhvcNAQEBBQADGwAwGAIRAMkbduS4H0h7uM6V1BNV3M8CAwEAAQ==\n" + 
+
+		[Test]
+		public function pem2():void {
+			var pem:String = "-----BEGIN PUBLIC KEY-----\n" +
+					"MCwwDQYJKoZIhvcNAQEBBQADGwAwGAIRAMkbduS4H0h7uM6V1BNV3M8CAwEAAQ==\n" +
 					"-----END PUBLIC KEY-----";
 			var rsa:RSAKey = PEM.readRSAPublicKey(pem);
-			assert("rsa!=null", rsa!=null);
+			assert(rsa != null);
 			//trace(rsa.dump());
 		}
-		
-		public function testAdobeSample():void {
-	       var myPEMPublicKeyString:String = 
+
+		[Test]
+		public function adobeSample():void {
+	       var myPEMPublicKeyString:String =
 	       		"-----BEGIN PUBLIC KEY-----" +
-	       		"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALHpyYTN96rMbkQB" + 
-	       		"gIoB9vH2AN47NN1YXoKxAaqpEkafQdPUw41p4gTrA0r04acE" + 
-	       		"m3GaWUA4YROCSKgJnvii0UsCAwEAAQ==" + 
+	       		"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALHpyYTN96rMbkQB" +
+	       		"gIoB9vH2AN47NN1YXoKxAaqpEkafQdPUw41p4gTrA0r04acE" +
+	       		"m3GaWUA4YROCSKgJnvii0UsCAwEAAQ==" +
 	       		"-----END PUBLIC KEY-----";
-	
+
 	        // Put data to be encrypted into a byte array
 	        var data:ByteArray = Hex.toArray(Hex.fromString("MyInputString"));
-	
+
 	        // Destination ByteArray that will contain the encrypted data
 	        var encryptedResult:ByteArray = new ByteArray;
-	
+
 	        // Set up the RSAKey and encrypt the data
 	        var rsa:RSAKey = PEM.readRSAPublicKey(myPEMPublicKeyString);
 	        rsa.encrypt(data, encryptedResult, data.length);
-	
+
 	        // Convert the encrypted data into a hex encoded string for transport
 	        // The other side of the connection can convert the hex back into
 	        // binary before decrypting
 	        var hexEncryptedResult:String = Hex.fromArray(encryptedResult);
-	        assert("encrypted some stuff", hexEncryptedResult.length>5);
+	        assert(hexEncryptedResult.length > 5);
 		}
-		
-		public function testLongText():void {
-			var pem:String = "-----BEGIN RSA PRIVATE KEY-----\n" + 
-					"MGQCAQACEQDJG3bkuB9Ie7jOldQTVdzPAgMBAAECEQCOGqcPhP8t8mX8cb4cQEaR\n" + 
-					"AgkA5WTYuAGmH0cCCQDgbrto0i7qOQIINYr5btGrtccCCQCYy4qX4JDEMQIJAJll\n" + 
-					"OnLVtCWk\n" + 
+
+		[Test]
+		public function longText():void {
+			var pem:String = "-----BEGIN RSA PRIVATE KEY-----\n" +
+					"MGQCAQACEQDJG3bkuB9Ie7jOldQTVdzPAgMBAAECEQCOGqcPhP8t8mX8cb4cQEaR\n" +
+					"AgkA5WTYuAGmH0cCCQDgbrto0i7qOQIINYr5btGrtccCCQCYy4qX4JDEMQIJAJll\n" +
+					"OnLVtCWk\n" +
 					"-----END RSA PRIVATE KEY-----";
 			var rsa:RSAKey = PEM.readRSAPrivateKey(pem);
-				
-			var txt:String = "With each new release" + 
-					"of Flash Player, Adobe strives to introduce a stronger platform with" + 
-					"more robust security controls and tools for creating secure" + 
-					"applications. By leveraging those tools, compiling for recent" + 
-					"versions, performing data validation, and leveraging available SDKs," + 
-					"developers can produce more secure applications that run in Flash" + 
+
+			var txt:String = "With each new release" +
+					"of Flash Player, Adobe strives to introduce a stronger platform with" +
+					"more robust security controls and tools for creating secure" +
+					"applications. By leveraging those tools, compiling for recent" +
+					"versions, performing data validation, and leveraging available SDKs," +
+					"developers can produce more secure applications that run in Flash" +
 					"Player.";
 			var src:ByteArray = Hex.toArray(Hex.fromString(txt));
 			var dst:ByteArray = new ByteArray;
@@ -143,8 +135,9 @@ package com.hurlant.tests.crypto.rsa
 			rsa.encrypt(src, dst, src.length);
 			rsa.decrypt(dst, dst2, dst.length);
 			var txt2:String = Hex.toString(Hex.fromArray(dst2));
-			assert("rsa long text encrypt+decrypt", txt==txt2);
-				 
+			assert(txt, txt2);
 		}
+
 	}
+
 }
