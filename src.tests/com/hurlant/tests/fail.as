@@ -1,4 +1,4 @@
-package net.moonsphere.tests {
+package com.hurlant.tests {
 
 	import org.flexunit.Assert;
 
