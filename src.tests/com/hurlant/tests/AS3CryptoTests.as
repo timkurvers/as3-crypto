@@ -51,7 +51,10 @@ package com.hurlant.tests {
 			TripleDESKeyTest,
 			XTeaKeyTest,
 
-			BigIntegerTest
+			BigIntegerTest,
+
+			ArrayUtilTest,
+			HexTest
 		];
 
 		/**
