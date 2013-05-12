@@ -56,11 +56,17 @@ package com.hurlant.tests.util {
 		[Test]
 		public function toString():void {
 			assert(Hex.toString('61733363727970746f'), 'as3crypto');
+
+			assert(Hex.toString('e2b8ae'), '⸮');
+			assert(Hex.toRawString('e2b8ae'), 'â¸®');
 		}
 
 		[Test]
 		public function fromString():void {
 			assert(Hex.fromString('as3crypto'), '61733363727970746f');
+
+			assert(Hex.fromString('⸮'), 'e2b8ae');
+			assert(Hex.fromRawString('â¸®'), 'e2b8ae');
 		}
 
 	}
