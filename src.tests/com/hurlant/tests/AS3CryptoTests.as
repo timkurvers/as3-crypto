@@ -54,6 +54,7 @@ package com.hurlant.tests {
 			BigIntegerTest,
 
 			ArrayUtilTest,
+			Base64Test,
 			HexTest
 		];
 
