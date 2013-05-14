@@ -72,15 +72,11 @@ package com.hurlant.tests.util {
 				var src:ByteArray = Hex.toArray(Hex.fromString(srcs[i]));
 				assert(Base64.encodeByteArray(src), encs[i]);
 				assert(ArrayUtil.equals(Base64.decodeToByteArray(encs[i]), src));
-				assert(ArrayUtil.equals(Base64.decodeToByteArrayB(encs[i]), src));
 			}
 
-			// Discards non-decodable characters
-			assert(Base64.decode('^^Zm9vYmFy'), 'foobar');
-			assert(ArrayUtil.equals(Base64.decodeToByteArrayB('^^Zm9vYmFy'), Hex.toArray(Hex.fromString('foobar'))));
-
-			// Produces garble on non-decodable characters
-			assert(ArrayUtil.equals(Base64.decodeToByteArray('^^Zm9vYmFy'), Hex.toArray(Hex.fromRawString('ÿöföö&&&'))));
+			// Discards non-decodable characters and remainder
+			assert(Base64.decode('Zm9v^^YmFy'), 'foo');
+			assert(ArrayUtil.equals(Base64.decodeToByteArray('Zm9v^^YmFy'), Hex.toArray(Hex.fromString('foo'))));
 		}
 
 	}
