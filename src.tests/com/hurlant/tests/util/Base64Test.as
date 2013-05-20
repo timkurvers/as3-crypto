@@ -40,7 +40,9 @@ package com.hurlant.tests.util {
 				'but by this singular passion from other animals, ' +
 				'which is a lust of the mind, that by a perseverance ' +
 				'of delight in the continued and indefatigable generation ' +
-				'of knowledge, exceeds the short vehemence of any carnal pleasure.'
+				'of knowledge, exceeds the short vehemence of any carnal pleasure.',
+
+				'¢€𝇇'
 			];
 
 			var encs:Array = [
@@ -62,7 +64,9 @@ package com.hurlant.tests.util {
 				'IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg' +
 				'dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu' +
 				'dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo' +
-				'ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4='
+				'ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=',
+
+				'wqLigqzwnYeH'
 			];
 
 			for (var i:uint=0; i<srcs.length; i++) {
