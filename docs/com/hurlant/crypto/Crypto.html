@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="Crypto,com.hurlant.crypto.Crypto,getCipher,getHMAC,getHash,getKeySize,getMAC,getPad,getRSA"><title>com.hurlant.crypto.Crypto</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'Crypto - as3-crypto';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">ActionScript 3 Cryptography Library</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/hurlant/crypto/Crypto.html&amp;com/hurlant/crypto/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">Crypto</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#methodSummary">Methods</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Crypto"); titleBar_setSubNav(false,false,false,false,false,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.hurlant.crypto</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  Crypto</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Crypto  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+	 A class to make it easy to use the rest of the framework.
+	 As a side-effect, using this class will cause most of the framework
+	 to be linked into your application, which is not always what you want.
+	 
+	 If you want to optimize your download size, don't use this class.
+	 (But feel free to read it to get ideas on how to get the algorithm you want.)
+	 <p></p><br/><hr></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#Crypto()" class="signatureLink">Crypto</a>()</div><div class="summaryTableDescription"></div></td><td class="summaryTableOwnerCol">Crypto</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getCipher()" class="signatureLink">getCipher</a>(name:String, key:ByteArray, pad:<a href="../../../com/hurlant/crypto/symmetric/IPad.html">IPad</a> = null):<a href="../../../com/hurlant/crypto/symmetric/ICipher.html">ICipher</a></div><div class="summaryTableDescription">[static] 
+		 Things that should work, among others:
+		  "aes"
+		  "aes-128-ecb"
+		  "aes-128-cbc"
+		  "aes-128-cfb"
+		  "aes-128-cfb8"
+		  "aes-128-ofb"
+		  "aes-192-cfb"
+		  "aes-256-ofb"
+		  "blowfish-cbc"
+		  "des-ecb"
+		  "xtea"
+		  "xtea-ecb"
+		  "xtea-cbc"
+		  "xtea-cfb"
+		  "xtea-cfb8"
+		  "xtea-ofb"
+		  "rc4"
+		  "simple-aes-cbc"
+		 </div></td><td class="summaryTableOwnerCol">Crypto</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getHash()" class="signatureLink">getHash</a>(name:String):<a href="../../../com/hurlant/crypto/hash/IHash.html">IHash</a></div><div class="summaryTableDescription">[static] 
+		 Things that should work:
+		 "md5"
+		 "sha"
+		 "sha1"
+		 "sha224"
+		 "sha256"
+		 </div></td><td class="summaryTableOwnerCol">Crypto</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getHMAC()" class="signatureLink">getHMAC</a>(name:String):<a href="../../../com/hurlant/crypto/hash/HMAC.html">HMAC</a></div><div class="summaryTableDescription">[static] 
+		 Things that should work:
+		 "sha1"
+		 "md5-64"
+		 "hmac-md5-96"
+		 "hmac-sha1-128"
+		 "hmac-sha256-192"
+		 etc.</div></td><td class="summaryTableOwnerCol">Crypto</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getKeySize()" class="signatureLink">getKeySize</a>(name:String):uint</div><div class="summaryTableDescription">[static] 
+		 Returns the size of a key for a given cipher identifier.</div></td><td class="summaryTableOwnerCol">Crypto</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getMAC()" class="signatureLink">getMAC</a>(name:String):<a href="../../../com/hurlant/crypto/hash/MAC.html">MAC</a></div><div class="summaryTableDescription">[static] </div></td><td class="summaryTableOwnerCol">Crypto</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getPad()" class="signatureLink">getPad</a>(name:String):<a href="../../../com/hurlant/crypto/symmetric/IPad.html">IPad</a></div><div class="summaryTableDescription">[static] </div></td><td class="summaryTableOwnerCol">Crypto</td></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#getRSA()" class="signatureLink">getRSA</a>(E:String, M:String):<a href="../../../com/hurlant/crypto/rsa/RSAKey.html">RSAKey</a></div><div class="summaryTableDescription">[static]  mostly useless.</div></td><td class="summaryTableOwnerCol">Crypto</td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><a name="constructorDetail"></a><div class="detailSectionHeader">Constructor Detail</div><a name="Crypto()"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">Crypto</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">Constructor</td></tr></table><div class="detailBody"><code>public function Crypto()</code><p></p><br/><br/></div><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="getCipher()"></a><a name="getCipher(String,flash.utils.ByteArray,com.hurlant.crypto.symmetric.IPad)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getCipher</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code> public static function getCipher(name:String, key:ByteArray, pad:<a href="../../../com/hurlant/crypto/symmetric/IPad.html">IPad</a> = null):<a href="../../../com/hurlant/crypto/symmetric/ICipher.html">ICipher</a></code><p></p><p></p><p>
+		 Things that should work, among others:
+		  "aes"
+		  "aes-128-ecb"
+		  "aes-128-cbc"
+		  "aes-128-cfb"
+		  "aes-128-cfb8"
+		  "aes-128-ofb"
+		  "aes-192-cfb"
+		  "aes-256-ofb"
+		  "blowfish-cbc"
+		  "des-ecb"
+		  "xtea"
+		  "xtea-ecb"
+		  "xtea-cbc"
+		  "xtea-cfb"
+		  "xtea-cfb8"
+		  "xtea-ofb"
+		  "rc4"
+		  "simple-aes-cbc"
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">name</span>:String</code></td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">key</span>:ByteArray</code></td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">pad</span>:<a href="../../../com/hurlant/crypto/symmetric/IPad.html">IPad</a></code> (default = <code>null</code>)<code></code></td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code><a href="../../../com/hurlant/crypto/symmetric/ICipher.html">ICipher</a></code></td></tr></table></div><a name="getHash()"></a><a name="getHash(String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getHash</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function getHash(name:String):<a href="../../../com/hurlant/crypto/hash/IHash.html">IHash</a></code><p></p><p></p><p>
+		 Things that should work:
+		 "md5"
+		 "sha"
+		 "sha1"
+		 "sha224"
+		 "sha256"
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">name</span>:String</code></td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code><a href="../../../com/hurlant/crypto/hash/IHash.html">IHash</a></code></td></tr></table></div><a name="getHMAC()"></a><a name="getHMAC(String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getHMAC</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function getHMAC(name:String):<a href="../../../com/hurlant/crypto/hash/HMAC.html">HMAC</a></code><p></p><p></p><p>
+		 Things that should work:
+		 "sha1"
+		 "md5-64"
+		 "hmac-md5-96"
+		 "hmac-sha1-128"
+		 "hmac-sha256-192"
+		 etc.
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">name</span>:String</code></td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code><a href="../../../com/hurlant/crypto/hash/HMAC.html">HMAC</a></code></td></tr></table></div><a name="getKeySize()"></a><a name="getKeySize(String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getKeySize</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function getKeySize(name:String):uint</code><p></p><p></p><p>
+		 Returns the size of a key for a given cipher identifier.
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">name</span>:String</code></td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>uint</code></td></tr></table></div><a name="getMAC()"></a><a name="getMAC(String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getMAC</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function getMAC(name:String):<a href="../../../com/hurlant/crypto/hash/MAC.html">MAC</a></code><p></p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">name</span>:String</code></td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code><a href="../../../com/hurlant/crypto/hash/MAC.html">MAC</a></code></td></tr></table></div><a name="getPad()"></a><a name="getPad(String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getPad</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function getPad(name:String):<a href="../../../com/hurlant/crypto/symmetric/IPad.html">IPad</a></code><p></p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">name</span>:String</code></td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code><a href="../../../com/hurlant/crypto/symmetric/IPad.html">IPad</a></code></td></tr></table></div><a name="getRSA()"></a><a name="getRSA(String,String)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">getRSA</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td></tr></table><div class="detailBody"><code> public static function getRSA(E:String, M:String):<a href="../../../com/hurlant/crypto/rsa/RSAKey.html">RSAKey</a></code><p></p><p></p><p> mostly useless.
+		 </p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">E</span>:String</code></td></tr><tr><td class="paramSpacer">&nbsp;</td></tr><tr><td width="20px"></td><td><code><span class="label">M</span>:String</code></td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code><a href="../../../com/hurlant/crypto/rsa/RSAKey.html">RSAKey</a></code></td></tr></table></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Mon May 20 2013, 09:16 PM +02:00  </center></div></body></html><!--<br/>Mon May 20 2013, 09:16 PM +02:00  -->
