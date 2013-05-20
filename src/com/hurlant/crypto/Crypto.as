@@ -81,7 +81,7 @@ package com.hurlant.crypto
 			// split name into an array.
 			var keys:Array = name.split("-");
 			switch (keys[0]) {
-				/**
+				/*
 				 * "simple" is a special case. It means:
 				 * "If using an IV mode, prepend the IV to the ciphertext"
 				 */
@@ -94,7 +94,7 @@ package com.hurlant.crypto
 					} else {
 						return cipher;
 					}
-				/**
+				/*
 				 * we support both "aes-128" and "aes128"
 				 * Technically, you could use "aes192-128", but you'd
 				 * only be hurting yourself.
@@ -114,7 +114,7 @@ package com.hurlant.crypto
 				case "blowfish":
 					keys.shift();
 					return getMode(keys[0], new BlowFishKey(key), pad);
-				/**
+				/*
 				 * des-ede and des-ede3 are both equivalent to des3.
 				 * the choice between 2tdes and 3tdes is made based
 				 * on the length of the key provided.
@@ -136,7 +136,7 @@ package com.hurlant.crypto
 					keys.shift();
 					return getMode(keys[0], new XTeaKey(key), pad);
 				break;
-				/**
+				/*
 				 * Technically, you could say "rc4-128" or whatever,
 				 * but really, the length of the key is what counts here.
 				 */

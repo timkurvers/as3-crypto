@@ -9,7 +9,7 @@
  * 
  * See LICENSE.txt for full license information.
  * 
- * Changes 2010-02-10 Jason von Nieda <jason@vonnieda.org>
+ * Changes 2010-02-10 Jason von Nieda (jason[at]vonnieda.org)
  */
 package com.hurlant.math
 {

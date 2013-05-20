@@ -5,7 +5,7 @@
  * See comment below for some details.
  * Copyright (c) 2007 Henri Torgemane
  * 
- * Patched(heavily) by Bobby Parker (shortwave@gmail.com)
+ * Patched(heavily) by Bobby Parker (shortwave[at]gmail.com)
  * 
  * See LICENSE.txt for full license information.
  */
