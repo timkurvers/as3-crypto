@@ -32,29 +32,20 @@ package com.hurlant.util {
 		/**
 		 * Generates lowercase hexadecimal string from given byte-array
 		 */
-		public static function fromArray(array:ByteArray, colons:Boolean=false, length:uint=0):String {
-            var s:String = "";
-            var colon:String = "";
-            var i:uint;
-            
-            if( length <= 0 || length > array.length ) {
-                length = array.length;
-            }
-            
-            if (colons) {
-                colon = ":";
-            }
-            
-            for ( i = 0; i < length; i++ ) {
-                s += ( "0" + array[i].toString(16) ).substr( -2, 2 ) + colon;
-            }
-            
-            if (colons) {
-                s = s.substring(0, s.length-1);
-            }
-            
-            return s;
-        }
+		public static function fromArray(array:ByteArray, colons:Boolean=false):String {
+			var s:String = "";
+			var colon:String = "";
+			var length:uint = array.length;
+			
+			if ( colons ) colon = ":";
+			
+			for ( var i:uint = 0; i < length; i++ ) 
+			{
+				s += ( "0" + array[i].toString(16) ).substr( -2, 2 ) + colon;
+			}
+			
+			return (colons) ? s.substring( 0, s.length-1 ) : s;
+		}
 
 		/**
 		 * Generates string from given hexadecimal string
