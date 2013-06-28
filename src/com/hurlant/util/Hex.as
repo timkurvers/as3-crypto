@@ -3,6 +3,7 @@
  *
  * Utility class to convert Hex strings to ByteArray or String types.
  * Copyright (c) 2007 Henri Torgemane
+ * contributed: Alexander Keck
  *
  * See LICENSE.txt for full license information.
  */
@@ -32,12 +33,13 @@ package com.hurlant.util {
 		/**
 		 * Generates lowercase hexadecimal string from given byte-array
 		 */
-		public static function fromArray(array:ByteArray, colons:Boolean=false):String {
-			var s:String = "";
-			for (var i:uint=0;i<array.length;i++) {
-				s+=("0"+array[i].toString(16)).substr(-2,2);
-				if (colons) {
-					if (i<array.length-1) s+=":";
+		public static function fromArray(array : ByteArray, useSeperators : Boolean = false, seperator : String = ':') : String {
+			var s : String = "";
+			for (var i : uint = 0; i < array.length; i++) {
+				s += ("0" + int(array[i]).toString(16)).substr(-2,2);
+				if (useSeperators) {
+					if (i < array.length - 1)
+						s += seperator;
 				}
 			}
 			return s;
@@ -45,6 +47,10 @@ package com.hurlant.util {
 
 		/**
 		 * Generates string from given hexadecimal string
+		 *
+		 * @param hex
+		 * @return a UTF-8 string decoded from hex
+		 *
 		 */
 		public static function toString(hex:String, charSet:String='utf-8'):String {
 			var a:ByteArray = toArray(hex);
@@ -60,6 +66,10 @@ package com.hurlant.util {
 
 		/**
 		 * Generates hexadecimal string from given string
+		 *
+		 * @param str
+		 * @return a hex string encoded from the UTF-8 string str
+		 *
 		 */
 		public static function fromString(str:String, colons:Boolean=false, charSet:String='utf-8'):String {
 			var a:ByteArray = new ByteArray;
