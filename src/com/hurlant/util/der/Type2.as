@@ -179,7 +179,8 @@ package com.hurlant.util.der
 				{ printableString: printableString(1,maxSize) },
 				{ universalString: universalString(1,maxSize) },
 				{ bmpString: bmpString(1,maxSize) },
-				{ utf8String: utf8String(1,maxSize) }
+				{ utf8String: utf8String(1,maxSize) },
+				{ ia5String: ia5String(1,maxSize) }
 			);
 		};
 		
