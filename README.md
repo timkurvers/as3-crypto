@@ -3,7 +3,7 @@
 <img alt="Supported by FDT" src="http://office.moonsphere.net/supported-by-fdt.png" align="right" />
 
 Copyright (c) 2007 Henri Torgemane  
-Modifications (c) 2011 Tim Kurvers and various other contributors
+Modifications (c) 2011-2013 Tim Kurvers and various other contributors
 
 A cryptography library written in ActionScript 3 that provides several common algorithms. This version also introduces a TLS engine, more commonly known as SSL.
 
