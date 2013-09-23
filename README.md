@@ -1,5 +1,7 @@
 # ActionScript 3 Cryptography Library
 
+<img alt="Supported by FDT" src="http://office.moonsphere.net/supported-by-fdt.png" align="right" />
+
 Copyright (c) 2007 Henri Torgemane  
 Modifications (c) 2011 Tim Kurvers and various other contributors
 
