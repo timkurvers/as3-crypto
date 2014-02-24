@@ -16,6 +16,8 @@ package com.hurlant.crypto.symmetric
 	import com.hurlant.crypto.prng.Random;
 	import com.hurlant.util.Hex;
 	import com.hurlant.util.Memory;
+	import com.buraks.utils.fastmem;
+  import flash.system.ApplicationDomain;
 	
 	import flash.utils.ByteArray;
 
@@ -308,8 +310,12 @@ package com.hurlant.crypto.symmetric
 		{
 			var round:uint;
 			state.position=0;
-			state.writeBytes(block, index, Nb*4);
-
+			state.length = ApplicationDomain.MIN_DOMAIN_MEMORY_LENGTH;
+			fastmem.fastSelectMem(state);
+			var i:Number;
+			for(i = 0; i < 4*Nb ; i++) {
+			  fastmem.fastSetByte(block[index+i],i);
+			}
 			addRoundKey(key, Nr*Nb*4);
 			invShiftRows();
 			for( round = Nr; round--; )
@@ -319,9 +325,13 @@ package com.hurlant.crypto.symmetric
 					invMixSubColumns();
 				}
 			}
-			
-			block.position=index;
-			block.writeBytes(state);
+
+
+			for(i = 0; i < 4*Nb ; i++) {
+			  block[index+i] = fastmem.fastGetByte(i);
+			}
+			block.position=index+4*Nb;
+			fastmem.fastDeselectMem();
 		}
 		
 		public function dispose():void {
@@ -355,21 +365,21 @@ package com.hurlant.crypto.symmetric
 		{
 			var tmp:uint;
 		
-			// just substitute row 0
-			state[0] = Sbox[state[0]]; state[4] = Sbox[state[4]];
-			state[8] = Sbox[state[8]]; state[12] = Sbox[state[12]];
+			// just substitute row 0		
+			fastmem.fastSetByte(Sbox[fastmem.fastGetByte(0)],0); fastmem.fastSetByte(Sbox[fastmem.fastGetByte(4)],4);
+			fastmem.fastSetByte(Sbox[fastmem.fastGetByte(8)],8); fastmem.fastSetByte(Sbox[fastmem.fastGetByte(12)],12);
 		
 			// rotate row 1
-			tmp = Sbox[state[1]]; state[1] = Sbox[state[5]];
-			state[5] = Sbox[state[9]]; state[9] = Sbox[state[13]]; state[13] = tmp;
+			tmp = Sbox[fastmem.fastGetByte(1)]; fastmem.fastSetByte(Sbox[fastmem.fastGetByte(5)],1);
+			fastmem.fastSetByte(Sbox[fastmem.fastGetByte(9)],5); fastmem.fastSetByte(Sbox[fastmem.fastGetByte(13)],9) ; fastmem.fastSetByte(tmp,13);
 		
 			// rotate row 2
-			tmp = Sbox[state[2]]; state[2] = Sbox[state[10]]; state[10] = tmp;
-			tmp = Sbox[state[6]]; state[6] = Sbox[state[14]]; state[14] = tmp;
+			tmp = Sbox[fastmem.fastGetByte(2)]; fastmem.fastSetByte(Sbox[fastmem.fastGetByte(10)],2); fastmem.fastSetByte(tmp,10);
+			tmp = Sbox[fastmem.fastGetByte(6)]; fastmem.fastSetByte(Sbox[fastmem.fastGetByte(14)],6); fastmem.fastSetByte(tmp,14);
 		
 			// rotate row 3
-			tmp = Sbox[state[15]]; state[15] = Sbox[state[11]];
-			state[11] = Sbox[state[7]]; state[7] = Sbox[state[3]]; state[3] = tmp;
+			tmp = Sbox[fastmem.fastGetByte(15)]; fastmem.fastSetByte(Sbox[fastmem.fastGetByte(11)],15);
+			fastmem.fastSetByte(Sbox[fastmem.fastGetByte(7)],11);  fastmem.fastSetByte(Sbox[fastmem.fastGetByte(3)],7); fastmem.fastSetByte(tmp,3);
 		}
 		
 		// restores columns in each of 4 rows
@@ -380,20 +390,20 @@ package com.hurlant.crypto.symmetric
 			var tmp:uint;
 		
 			// restore row 0
-			state[0] = InvSbox[state[0]]; state[4] = InvSbox[state[4]];
-			state[8] = InvSbox[state[8]]; state[12] = InvSbox[state[12]];
+			fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(0)],0); fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(4)],4);
+			fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(8)],8); fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(12)],12);
 		
 			// restore row 1
-			tmp = InvSbox[state[13]]; state[13] = InvSbox[state[9]];
-			state[9] = InvSbox[state[5]]; state[5] = InvSbox[state[1]]; state[1] = tmp;
+			tmp = InvSbox[fastmem.fastGetByte(13)]; fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(9)],13);
+			fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(5)],9); fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(1)],5); fastmem.fastSetByte(tmp,1);
 		
 			// restore row 2
-			tmp = InvSbox[state[2]]; state[2] = InvSbox[state[10]]; state[10] = tmp;
-			tmp = InvSbox[state[6]]; state[6] = InvSbox[state[14]]; state[14] = tmp;
+			tmp = InvSbox[fastmem.fastGetByte(2)]; fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(10)],2); fastmem.fastSetByte(tmp,10);
+			tmp = InvSbox[fastmem.fastGetByte(6)]; fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(14)],6); fastmem.fastSetByte(tmp,14);
 		
 			// restore row 3
-			tmp = InvSbox[state[3]]; state[3] = InvSbox[state[7]];
-			state[7] = InvSbox[state[11]]; state[11] = InvSbox[state[15]]; state[15] = tmp;
+			tmp = InvSbox[fastmem.fastGetByte(3)]; fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(7)],3);
+			fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(11)],7); fastmem.fastSetByte(InvSbox[fastmem.fastGetByte(15)],11); fastmem.fastSetByte(tmp,15);
 		}
 		
 		// recombine and mix each row in a column
@@ -402,28 +412,28 @@ package com.hurlant.crypto.symmetric
 			tmp.length=0;
 		
 			// mixing column 0
-			tmp[0] = Xtime2Sbox[state[0]] ^ Xtime3Sbox[state[5]] ^ Sbox[state[10]] ^ Sbox[state[15]];
-			tmp[1] = Sbox[state[0]] ^ Xtime2Sbox[state[5]] ^ Xtime3Sbox[state[10]] ^ Sbox[state[15]];
-			tmp[2] = Sbox[state[0]] ^ Sbox[state[5]] ^ Xtime2Sbox[state[10]] ^ Xtime3Sbox[state[15]];
-			tmp[3] = Xtime3Sbox[state[0]] ^ Sbox[state[5]] ^ Sbox[state[10]] ^ Xtime2Sbox[state[15]];
+			tmp[0] = Xtime2Sbox[fastmem.fastGetByte(0)] ^ Xtime3Sbox[fastmem.fastGetByte(5)] ^ Sbox[fastmem.fastGetByte(10)] ^ Sbox[fastmem.fastGetByte(15)];
+			tmp[1] = Sbox[fastmem.fastGetByte(0)] ^ Xtime2Sbox[fastmem.fastGetByte(5)] ^ Xtime3Sbox[fastmem.fastGetByte(10)] ^ Sbox[fastmem.fastGetByte(15)];
+			tmp[2] = Sbox[fastmem.fastGetByte(0)] ^ Sbox[fastmem.fastGetByte(5)] ^ Xtime2Sbox[fastmem.fastGetByte(10)] ^ Xtime3Sbox[fastmem.fastGetByte(15)];
+			tmp[3] = Xtime3Sbox[fastmem.fastGetByte(0)] ^ Sbox[fastmem.fastGetByte(5)] ^ Sbox[fastmem.fastGetByte(10)] ^ Xtime2Sbox[fastmem.fastGetByte(15)];
 		
 			// mixing column 1
-			tmp[4] = Xtime2Sbox[state[4]] ^ Xtime3Sbox[state[9]] ^ Sbox[state[14]] ^ Sbox[state[3]];
-			tmp[5] = Sbox[state[4]] ^ Xtime2Sbox[state[9]] ^ Xtime3Sbox[state[14]] ^ Sbox[state[3]];
-			tmp[6] = Sbox[state[4]] ^ Sbox[state[9]] ^ Xtime2Sbox[state[14]] ^ Xtime3Sbox[state[3]];
-			tmp[7] = Xtime3Sbox[state[4]] ^ Sbox[state[9]] ^ Sbox[state[14]] ^ Xtime2Sbox[state[3]];
+			tmp[4] = Xtime2Sbox[fastmem.fastGetByte(4)] ^ Xtime3Sbox[fastmem.fastGetByte(9)] ^ Sbox[fastmem.fastGetByte(14)] ^ Sbox[fastmem.fastGetByte(3)];
+			tmp[5] = Sbox[fastmem.fastGetByte(4)] ^ Xtime2Sbox[fastmem.fastGetByte(9)] ^ Xtime3Sbox[fastmem.fastGetByte(14)] ^ Sbox[fastmem.fastGetByte(3)];
+			tmp[6] = Sbox[fastmem.fastGetByte(4)] ^ Sbox[fastmem.fastGetByte(9)] ^ Xtime2Sbox[fastmem.fastGetByte(14)] ^ Xtime3Sbox[fastmem.fastGetByte(3)];
+			tmp[7] = Xtime3Sbox[fastmem.fastGetByte(4)] ^ Sbox[fastmem.fastGetByte(9)] ^ Sbox[fastmem.fastGetByte(14)] ^ Xtime2Sbox[fastmem.fastGetByte(3)];
 		
 			// mixing column 2
-			tmp[8] = Xtime2Sbox[state[8]] ^ Xtime3Sbox[state[13]] ^ Sbox[state[2]] ^ Sbox[state[7]];
-			tmp[9] = Sbox[state[8]] ^ Xtime2Sbox[state[13]] ^ Xtime3Sbox[state[2]] ^ Sbox[state[7]];
-			tmp[10]  = Sbox[state[8]] ^ Sbox[state[13]] ^ Xtime2Sbox[state[2]] ^ Xtime3Sbox[state[7]];
-			tmp[11]  = Xtime3Sbox[state[8]] ^ Sbox[state[13]] ^ Sbox[state[2]] ^ Xtime2Sbox[state[7]];
+			tmp[8] = Xtime2Sbox[fastmem.fastGetByte(8)] ^ Xtime3Sbox[fastmem.fastGetByte(13)] ^ Sbox[fastmem.fastGetByte(2)] ^ Sbox[fastmem.fastGetByte(7)];
+			tmp[9] = Sbox[fastmem.fastGetByte(8)] ^ Xtime2Sbox[fastmem.fastGetByte(13)] ^ Xtime3Sbox[fastmem.fastGetByte(2)] ^ Sbox[fastmem.fastGetByte(7)];
+			tmp[10]  = Sbox[fastmem.fastGetByte(8)] ^ Sbox[fastmem.fastGetByte(13)] ^ Xtime2Sbox[fastmem.fastGetByte(2)] ^ Xtime3Sbox[fastmem.fastGetByte(7)];
+			tmp[11]  = Xtime3Sbox[fastmem.fastGetByte(8)] ^ Sbox[fastmem.fastGetByte(13)] ^ Sbox[fastmem.fastGetByte(2)] ^ Xtime2Sbox[fastmem.fastGetByte(7)];
 		
 			// mixing column 3
-			tmp[12] = Xtime2Sbox[state[12]] ^ Xtime3Sbox[state[1]] ^ Sbox[state[6]] ^ Sbox[state[11]];
-			tmp[13] = Sbox[state[12]] ^ Xtime2Sbox[state[1]] ^ Xtime3Sbox[state[6]] ^ Sbox[state[11]];
-			tmp[14] = Sbox[state[12]] ^ Sbox[state[1]] ^ Xtime2Sbox[state[6]] ^ Xtime3Sbox[state[11]];
-			tmp[15] = Xtime3Sbox[state[12]] ^ Sbox[state[1]] ^ Sbox[state[6]] ^ Xtime2Sbox[state[11]];
+			tmp[12] = Xtime2Sbox[fastmem.fastGetByte(12)] ^ Xtime3Sbox[fastmem.fastGetByte(1)] ^ Sbox[fastmem.fastGetByte(6)] ^ Sbox[fastmem.fastGetByte(11)];
+			tmp[13] = Sbox[fastmem.fastGetByte(12)] ^ Xtime2Sbox[fastmem.fastGetByte(1)] ^ Xtime3Sbox[fastmem.fastGetByte(6)] ^ Sbox[fastmem.fastGetByte(11)];
+			tmp[14] = Sbox[fastmem.fastGetByte(12)] ^ Sbox[fastmem.fastGetByte(1)] ^ Xtime2Sbox[fastmem.fastGetByte(6)] ^ Xtime3Sbox[fastmem.fastGetByte(11)];
+			tmp[15] = Xtime3Sbox[fastmem.fastGetByte(12)] ^ Sbox[fastmem.fastGetByte(1)] ^ Sbox[fastmem.fastGetByte(6)] ^ Xtime2Sbox[fastmem.fastGetByte(11)];
 		
 			state.position=0;
 			state.writeBytes(tmp, 0, Nb*4);
@@ -436,31 +446,31 @@ package com.hurlant.crypto.symmetric
 			var i:uint;
 		
 			// restore column 0
-			tmp[0] = XtimeE[state[0]] ^ XtimeB[state[1]] ^ XtimeD[state[2]] ^ Xtime9[state[3]];
-			tmp[5] = Xtime9[state[0]] ^ XtimeE[state[1]] ^ XtimeB[state[2]] ^ XtimeD[state[3]];
-			tmp[10] = XtimeD[state[0]] ^ Xtime9[state[1]] ^ XtimeE[state[2]] ^ XtimeB[state[3]];
-			tmp[15] = XtimeB[state[0]] ^ XtimeD[state[1]] ^ Xtime9[state[2]] ^ XtimeE[state[3]];
+			tmp[0] = XtimeE[fastmem.fastGetByte(0)] ^ XtimeB[fastmem.fastGetByte(1)] ^ XtimeD[fastmem.fastGetByte(2)] ^ Xtime9[fastmem.fastGetByte(3)];
+			tmp[5] = Xtime9[fastmem.fastGetByte(0)] ^ XtimeE[fastmem.fastGetByte(1)] ^ XtimeB[fastmem.fastGetByte(2)] ^ XtimeD[fastmem.fastGetByte(3)];
+			tmp[10] = XtimeD[fastmem.fastGetByte(0)] ^ Xtime9[fastmem.fastGetByte(1)] ^ XtimeE[fastmem.fastGetByte(2)] ^ XtimeB[fastmem.fastGetByte(3)];
+			tmp[15] = XtimeB[fastmem.fastGetByte(0)] ^ XtimeD[fastmem.fastGetByte(1)] ^ Xtime9[fastmem.fastGetByte(2)] ^ XtimeE[fastmem.fastGetByte(3)];
 		
 			// restore column 1
-			tmp[4] = XtimeE[state[4]] ^ XtimeB[state[5]] ^ XtimeD[state[6]] ^ Xtime9[state[7]];
-			tmp[9] = Xtime9[state[4]] ^ XtimeE[state[5]] ^ XtimeB[state[6]] ^ XtimeD[state[7]];
-			tmp[14] = XtimeD[state[4]] ^ Xtime9[state[5]] ^ XtimeE[state[6]] ^ XtimeB[state[7]];
-			tmp[3] = XtimeB[state[4]] ^ XtimeD[state[5]] ^ Xtime9[state[6]] ^ XtimeE[state[7]];
+			tmp[4] = XtimeE[fastmem.fastGetByte(4)] ^ XtimeB[fastmem.fastGetByte(5)] ^ XtimeD[fastmem.fastGetByte(6)] ^ Xtime9[fastmem.fastGetByte(7)];
+			tmp[9] = Xtime9[fastmem.fastGetByte(4)] ^ XtimeE[fastmem.fastGetByte(5)] ^ XtimeB[fastmem.fastGetByte(6)] ^ XtimeD[fastmem.fastGetByte(7)];
+			tmp[14] = XtimeD[fastmem.fastGetByte(4)] ^ Xtime9[fastmem.fastGetByte(5)] ^ XtimeE[fastmem.fastGetByte(6)] ^ XtimeB[fastmem.fastGetByte(7)];
+			tmp[3] = XtimeB[fastmem.fastGetByte(4)] ^ XtimeD[fastmem.fastGetByte(5)] ^ Xtime9[fastmem.fastGetByte(6)] ^ XtimeE[fastmem.fastGetByte(7)];
 		
 			// restore column 2
-			tmp[8] = XtimeE[state[8]] ^ XtimeB[state[9]] ^ XtimeD[state[10]] ^ Xtime9[state[11]];
-			tmp[13] = Xtime9[state[8]] ^ XtimeE[state[9]] ^ XtimeB[state[10]] ^ XtimeD[state[11]];
-			tmp[2]  = XtimeD[state[8]] ^ Xtime9[state[9]] ^ XtimeE[state[10]] ^ XtimeB[state[11]];
-			tmp[7]  = XtimeB[state[8]] ^ XtimeD[state[9]] ^ Xtime9[state[10]] ^ XtimeE[state[11]];
+			tmp[8] = XtimeE[fastmem.fastGetByte(8)] ^ XtimeB[fastmem.fastGetByte(9)] ^ XtimeD[fastmem.fastGetByte(10)] ^ Xtime9[fastmem.fastGetByte(11)];
+			tmp[13] = Xtime9[fastmem.fastGetByte(8)] ^ XtimeE[fastmem.fastGetByte(9)] ^ XtimeB[fastmem.fastGetByte(10)] ^ XtimeD[fastmem.fastGetByte(11)];
+			tmp[2]  = XtimeD[fastmem.fastGetByte(8)] ^ Xtime9[fastmem.fastGetByte(9)] ^ XtimeE[fastmem.fastGetByte(10)] ^ XtimeB[fastmem.fastGetByte(11)];
+			tmp[7]  = XtimeB[fastmem.fastGetByte(8)] ^ XtimeD[fastmem.fastGetByte(9)] ^ Xtime9[fastmem.fastGetByte(10)] ^ XtimeE[fastmem.fastGetByte(11)];
 		
 			// restore column 3
-			tmp[12] = XtimeE[state[12]] ^ XtimeB[state[13]] ^ XtimeD[state[14]] ^ Xtime9[state[15]];
-			tmp[1] = Xtime9[state[12]] ^ XtimeE[state[13]] ^ XtimeB[state[14]] ^ XtimeD[state[15]];
-			tmp[6] = XtimeD[state[12]] ^ Xtime9[state[13]] ^ XtimeE[state[14]] ^ XtimeB[state[15]];
-			tmp[11] = XtimeB[state[12]] ^ XtimeD[state[13]] ^ Xtime9[state[14]] ^ XtimeE[state[15]];
+			tmp[12] = XtimeE[fastmem.fastGetByte(12)] ^ XtimeB[fastmem.fastGetByte(13)] ^ XtimeD[fastmem.fastGetByte(14)] ^ Xtime9[fastmem.fastGetByte(15)];
+			tmp[1] = Xtime9[fastmem.fastGetByte(12)] ^ XtimeE[fastmem.fastGetByte(13)] ^ XtimeB[fastmem.fastGetByte(14)] ^ XtimeD[fastmem.fastGetByte(15)];
+			tmp[6] = XtimeD[fastmem.fastGetByte(12)] ^ Xtime9[fastmem.fastGetByte(13)] ^ XtimeE[fastmem.fastGetByte(14)] ^ XtimeB[fastmem.fastGetByte(15)];
+			tmp[11] = XtimeB[fastmem.fastGetByte(12)] ^ XtimeD[fastmem.fastGetByte(13)] ^ Xtime9[fastmem.fastGetByte(14)] ^ XtimeE[fastmem.fastGetByte(15)];
 		
 			for( i=0; i < 4 * Nb; i++ )
-				state[i] = InvSbox[tmp[i]];
+				fastmem.fastSetByte(InvSbox[tmp[i]],i);
 		}
 		
 		// encrypt/decrypt columns of the key
@@ -469,7 +479,7 @@ package com.hurlant.crypto.symmetric
 			var idx:uint;
 		
 			for( idx = 0; idx < 16; idx++ )
-				state[idx] ^= key[idx+offset];
+				fastmem.fastSetByte(fastmem.fastGetByte(idx)^key[idx+offset],idx);
 		}
 
 		public function toString():String {
