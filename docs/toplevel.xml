@@ -1082,6 +1082,8 @@
 </field>
 <field name='id_at_organizationalUnitName' fullname='com.hurlant.util.der:Type2/id_at_organizationalUnitName' type='com.hurlant.util.asn1.type:OIDType' isStatic='true' isConst='true' defaultValue='unknown' >
 </field>
+<field name='id_at_serialNumber' fullname='com.hurlant.util.der:Type2/id_at_serialNumber' type='com.hurlant.util.asn1.type:OIDType' isStatic='true' isConst='true' defaultValue='unknown' >
+</field>
 <field name='id_at_stateOrProvinceName' fullname='com.hurlant.util.der:Type2/id_at_stateOrProvinceName' type='com.hurlant.util.asn1.type:OIDType' isStatic='true' isConst='true' defaultValue='unknown' >
 </field>
 <field name='id_at_surname' fullname='com.hurlant.util.der:Type2/id_at_surname' type='com.hurlant.util.asn1.type:OIDType' isStatic='true' isConst='true' defaultValue='unknown' >
@@ -4231,6 +4233,18 @@
 <classRec name='BooleanType' fullname='com.hurlant.util.asn1.type:BooleanType' sourcefile='/Users/stepanberesnev/Dropbox/Work/as3crypto/src/com/hurlant/util/asn1/type/BooleanType.as' namespace='com.hurlant.util.asn1.type' access='public' baseclass='com.hurlant.util.asn1.type:ASN1Type' isFinal='false' isDynamic='false' >
 </classRec>
 <method name='BooleanType' fullname='com.hurlant.util.asn1.type:BooleanType/BooleanType' isStatic='false' isFinal='false' isOverride='false'  result_type='*'>
+</method>
+<method name='fromDERContent' fullname='com.hurlant.util.asn1.type:BooleanType/protected:fromDERContent' isStatic='false' isFinal='false' isOverride='true'  param_names='s;length' param_types='flash.utils:ByteArray;int' param_defaults='undefined;undefined' result_type='*'>
+<description><![CDATA[
+		 
+		 ]]></description>
+<param><![CDATA[s
+		 ]]></param>
+<param><![CDATA[length
+		 ]]></param>
+<return><![CDATA[a Boolean 
+		 
+		 ]]></return>
 </method>
 <classRec name='StringType' fullname='com.hurlant.util.asn1.type:StringType' sourcefile='/Users/stepanberesnev/Dropbox/Work/as3crypto/src/com/hurlant/util/asn1/type/StringType.as' namespace='com.hurlant.util.asn1.type' access='public' baseclass='com.hurlant.util.asn1.type:ASN1Type' isFinal='false' isDynamic='false' >
 </classRec>

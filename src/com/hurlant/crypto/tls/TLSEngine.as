@@ -816,9 +816,9 @@ package com.hurlant.crypto.tls {
 				} else {
 					// use regex to handle wildcard certs
 					var commonName:String = firstCert.getCommonName();
-					// replace all regex special characters with escaped version, except for asterisk
-					// replace the asterisk with a regex sequence to match one or more non-dot characters
-					var commonNameRegex:RegExp = new RegExp( commonName.replace(/[\^\\\-$.[\]|()?+{}]/g, "\\$&").replace(/\*/g, "[^.]+"), "gi");
+					// replace the asterisk and first dot with a regex sequence to match one or more non-dot characters followed by a dot
+					// this allows the wildcard cert to match a naked domain ( mydomain.com ) and subdomains (sub.mydomain.com)
+					var commonNameRegex:RegExp = new RegExp( commonName.replace(/[\^\\\-$.[\]|()?+{}]/g, "\\$&").replace(/\*\\\./g, "([^.]+\.)?"), "gi");
 					if (commonNameRegex.exec(_otherIdentity)) {
 						_otherCertificate = firstCert;
 					} else {

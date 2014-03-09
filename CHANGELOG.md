@@ -1,5 +1,7 @@
 # Changelog
 
+- Patch for Issue54: Submitted Patch for various certificate parsing issues
+
 ### v1.4 - October 2, 2011
 - Implemented [Jason von Nieda's BigInteger bug-fixes](http://groups.google.com/group/as3crypto/browse_thread/thread/92688a271a397bd0) and unit-tests.
 - Added [Joey Parrish' bug-fixes](http://groups.google.com/group/as3crypto/browse_thread/thread/ce57305fbeaaf08f) for `TLSEngine.sendApplicationData`
