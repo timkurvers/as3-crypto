@@ -228,7 +228,7 @@ package com.hurlant.crypto.tls {
 		}
 		
 		private function onSocketConnected(evt:Event=null):void {
-			_engine.addEventListener(ProgressEvent.SOCKET_DATA, function(e:*):void { _socket.flush(); });
+			_engine.addEventListener(ProgressEvent.SOCKET_DATA, function(e:*):void { if(connected) _socket.flush(); });
 			_socket.addEventListener(ProgressEvent.SOCKET_DATA, _engine.dataAvailable);
 			_engine.start();
 			if (evt)
