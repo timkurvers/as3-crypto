@@ -142,11 +142,10 @@ package com.hurlant.crypto.tls {
 		override public function connect(host:String, port:int):void {
 			init(new Socket, _config, host);
 			_socket.connect(host, port);
-			_engine.start();
 		}
 		
 		public function releaseSocket() : void {
-			_socket.removeEventListener(Event.CONNECT, dispatchEvent);
+			_socket.removeEventListener(Event.CONNECT, onSocketConnected);
 			_socket.removeEventListener(IOErrorEvent.IO_ERROR, dispatchEvent);
 			_socket.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
 			_socket.removeEventListener(Event.CLOSE, dispatchEvent);
@@ -187,6 +186,7 @@ package com.hurlant.crypto.tls {
 			_engine.addEventListener(ProgressEvent.SOCKET_DATA, function(e:*):void { _socket.flush(); });
 			_socket.addEventListener(ProgressEvent.SOCKET_DATA, _engine.dataAvailable);
 			_engine.addEventListener( TLSEvent.PROMPT_ACCEPT_CERT, onAcceptCert );
+			_engine.addEventListener(IOErrorEvent.IO_ERROR, dispatchEvent);
 
 			_ready = false;
 			_engine.start();
@@ -197,7 +197,6 @@ package com.hurlant.crypto.tls {
 				throw new Error("Cannot STARTTLS on a socket that isn't connected.");
 			}
 			init(socket, config, host);
-			_engine.start();
 		}
 		
 		private function init(socket:Socket, config:TLSConfig, host:String):void {
@@ -207,7 +206,6 @@ package com.hurlant.crypto.tls {
 			objectEncoding = ObjectEncoding.DEFAULT;
 			endian = Endian.BIG_ENDIAN;
 			_socket = socket;
-			_socket.addEventListener(Event.CONNECT, dispatchEvent);
 			_socket.addEventListener(IOErrorEvent.IO_ERROR, dispatchEvent);
 			_socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
 			_socket.addEventListener(Event.CLOSE, dispatchEvent);
@@ -220,12 +218,23 @@ package com.hurlant.crypto.tls {
 			_engine.addEventListener( TLSEvent.PROMPT_ACCEPT_CERT, onAcceptCert );
 			_engine.addEventListener(TLSEvent.READY, onTLSReady);
 			_engine.addEventListener(Event.CLOSE, onTLSClose);
-			_engine.addEventListener(ProgressEvent.SOCKET_DATA, function(e:*):void { if(connected) _socket.flush(); });
-			_socket.addEventListener(ProgressEvent.SOCKET_DATA, _engine.dataAvailable);
+			_engine.addEventListener(IOErrorEvent.IO_ERROR, dispatchEvent);
 
 			_ready = false;
+			if (_socket.connected)
+				onSocketConnected(null);
+			else
+				_socket.addEventListener(Event.CONNECT, onSocketConnected);
 		}
 		
+		private function onSocketConnected(evt:Event=null):void {
+			_engine.addEventListener(ProgressEvent.SOCKET_DATA, function(e:*):void { _socket.flush(); });
+			_socket.addEventListener(ProgressEvent.SOCKET_DATA, _engine.dataAvailable);
+			_engine.start();
+			if (evt)
+				dispatchEvent(evt);
+		}
+
 		override public function flush():void {
 			commitWrite();
 			_socket.flush();

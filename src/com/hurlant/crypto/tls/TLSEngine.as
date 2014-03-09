@@ -18,6 +18,7 @@ package com.hurlant.crypto.tls {
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.utils.ByteArray;
 	import flash.utils.IDataInput;
@@ -26,6 +27,7 @@ package com.hurlant.crypto.tls {
 	import flash.utils.setTimeout;
 
 	[Event(name="close", type="flash.events.Event")]
+	[Event(name="ioError", type="flash.events.IOErrorEvent")]
 	[Event(name="socketData", type="flash.events.ProgressEvent")]
 	[Event(name="ready", type="com.hurlant.crypto.tls.TLSEvent")]
 	[Event(name="data", type="com.hurlant.crypto.tls.TLSEvent")]
@@ -886,7 +888,9 @@ package com.hurlant.crypto.tls {
 			// - TLSErrors are always fatal.
 			// BP: Meh...not always. Common Name mismatches appear to be common on servers. Instead of closing, let's pause, and ask for confirmation 
 			// before we tear the connection down.
-			
+
+			if (hasEventListener(IOErrorEvent.IO_ERROR))
+				dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.message, e.errorID));
 			close(e);
 		}
 	}

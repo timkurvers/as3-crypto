@@ -1,4 +1,5 @@
 package com.hurlant.util.asn1.type {
+	import flash.utils.ByteArray;
 	import flash.net.registerClassAlias;
 	import flash.utils.ByteArray;
 	
