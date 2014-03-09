@@ -37,14 +37,13 @@ package com.hurlant.util {
 			var colon:String = "";
 			var length:uint = array.length;
 			
-			if ( colons ) colon = ":";
+			if (colons) colon = ":";
 			
-			for ( var i:uint = 0; i < length; i++ ) 
-			{
-				s += ( "0" + array[i].toString(16) ).substr( -2, 2 ) + colon;
+			for (var i:uint = 0; i < length; i++) {
+				s += ("0" + array[i].toString(16)).substr(-2, 2) + colon;
 			}
 			
-			return (colons) ? s.substring( 0, s.length-1 ) : s;
+			return (colons) ? s.substring(0, s.length-1) : s;
 		}
 
 		/**
