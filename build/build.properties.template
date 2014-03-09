@@ -1,0 +1,3 @@
+sdk.dir = /Applications/Adobe Flash Builder 4.7/sdks/4.0A
+
+FLEX_HOME = ${sdk.dir}

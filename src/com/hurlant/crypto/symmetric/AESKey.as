@@ -6,7 +6,7 @@
  * Copyright (c) 2007 Henri Torgemane
  * 
  * Derived from:
- * 		A public domain implementation from Karl Malbrain, malbrain@yahoo.com
+ * 		A public domain implementation from Karl Malbrain, malbrain&#64;yahoo.com
  * 		(http://www.geocities.com/malbrain/aestable_c.html)
  * 
  * See LICENSE.txt for full license information.

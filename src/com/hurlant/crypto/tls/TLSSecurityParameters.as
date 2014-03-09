@@ -5,7 +5,7 @@
  * during the TLS handshake. It also holds all the key derivation methods.
  * Copyright (c) 2007 Henri Torgemane
  * 
- * Patched by Bobby Parker (sh0rtwave[at]gmail.com)
+ * Patched by Bobby Parker (sh0rtwave&#64;gmail.com)
  * 
  * See LICENSE.txt for full license information.
  */
