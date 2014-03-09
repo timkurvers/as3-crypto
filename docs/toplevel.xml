@@ -1914,6 +1914,10 @@
 	</Event>
 </metadata>
 <metadata>
+	<Event owner='com.hurlant.crypto.tls:TLSEngine' name='ioError' type='flash.events.IOErrorEvent' >
+	</Event>
+</metadata>
+<metadata>
 	<Event owner='com.hurlant.crypto.tls:TLSEngine' name='close' type='flash.events.Event' >
 	</Event>
 </metadata>
@@ -2426,6 +2430,8 @@
 </method>
 <method name='onAcceptCert' fullname='com.hurlant.crypto.tls:TLSSocket/onAcceptCert' isStatic='false' isFinal='false' isOverride='false'  param_names='event' param_types='com.hurlant.crypto.tls:TLSEvent' param_defaults='undefined' result_type='void'>
 </method>
+<method name='onSocketConnected' fullname='com.hurlant.crypto.tls:TLSSocket/private:onSocketConnected' isStatic='false' isFinal='false' isOverride='false'  param_names='evt' param_types='flash.events:Event' param_defaults='null' result_type='void'>
+</method>
 <method name='onTLSClose' fullname='com.hurlant.crypto.tls:TLSSocket/private:onTLSClose' isStatic='false' isFinal='false' isOverride='false'  param_names='event' param_types='flash.events:Event' param_defaults='undefined' result_type='void'>
 </method>
 <method name='onTLSData' fullname='com.hurlant.crypto.tls:TLSSocket/private:onTLSData' isStatic='false' isFinal='false' isOverride='false'  param_names='event' param_types='com.hurlant.crypto.tls:TLSEvent' param_defaults='undefined' result_type='void'>
@@ -2621,28 +2627,6 @@
 </method>
 <packageRec name='com.hurlant.crypto.symmetric.null' fullname='com.hurlant.crypto.symmetric.null'>
 <description><![CDATA[
- PKCS5
- 
- A padding implementation of PKCS5.
- Copyright (c) 2007 Henri Torgemane
- 
- See LICENSE.txt for full license information.
- ]]></description>
-</packageRec>
-<classRec name='PKCS5' fullname='com.hurlant.crypto.symmetric:PKCS5' sourcefile='/Users/stepanberesnev/Dropbox/Work/as3crypto/src/com/hurlant/crypto/symmetric/PKCS5.as' namespace='com.hurlant.crypto.symmetric' access='public' baseclass='Object' interfaces='com.hurlant.crypto.symmetric:IPad' isFinal='false' isDynamic='false' >
-</classRec>
-<method name='PKCS5' fullname='com.hurlant.crypto.symmetric:PKCS5/PKCS5' isStatic='false' isFinal='false' isOverride='false'  param_names='blockSize' param_types='uint' param_defaults='0' result_type='*'>
-</method>
-<method name='pad' fullname='com.hurlant.crypto.symmetric:PKCS5/pad' isStatic='false' isFinal='false' isOverride='false'  param_names='a' param_types='flash.utils:ByteArray' param_defaults='undefined' result_type='void'>
-</method>
-<method name='setBlockSize' fullname='com.hurlant.crypto.symmetric:PKCS5/setBlockSize' isStatic='false' isFinal='false' isOverride='false'  param_names='bs' param_types='uint' param_defaults='undefined' result_type='void'>
-</method>
-<method name='unpad' fullname='com.hurlant.crypto.symmetric:PKCS5/unpad' isStatic='false' isFinal='false' isOverride='false'  param_names='a' param_types='flash.utils:ByteArray' param_defaults='undefined' result_type='void'>
-</method>
-<field name='blockSize' fullname='com.hurlant.crypto.symmetric:PKCS5/private:blockSize' type='uint' isStatic='false' isConst='false' >
-</field>
-<packageRec name='com.hurlant.crypto.symmetric.null' fullname='com.hurlant.crypto.symmetric.null'>
-<description><![CDATA[
  NullPad
  
  A padding class that doesn't pad.
@@ -2739,6 +2723,45 @@
 	 
 	 ]]></description>
 </interfaceRec>
+<packageRec name='com.hurlant.crypto.symmetric.null' fullname='com.hurlant.crypto.symmetric.null'>
+<description><![CDATA[
+ PKCS5
+  A padding implementation of PKCS5.
+ Copyright (c) 2007 Henri Torgemane
+ contributed: Alexander Keck
+  See LICENSE.txt for full license information.
+ ]]></description>
+</packageRec>
+<classRec name='PKCS5' fullname='com.hurlant.crypto.symmetric:PKCS5' sourcefile='/Users/stepanberesnev/Dropbox/Work/as3crypto/src/com/hurlant/crypto/symmetric/PKCS5.as' namespace='com.hurlant.crypto.symmetric' access='public' baseclass='Object' interfaces='com.hurlant.crypto.symmetric:IPad' isFinal='false' isDynamic='false' >
+<description><![CDATA[
+	 TODO: rename / refactor class name and methods since the used general definition
+	 of the padding algorithm is defined in PKCS#7 (rfc5652 section 6.3)
+	 ]]></description>
+</classRec>
+<method name='PKCS5' fullname='com.hurlant.crypto.symmetric:PKCS5/PKCS5' isStatic='false' isFinal='false' isOverride='false'  param_names='blockSize' param_types='uint' param_defaults='0' result_type='*'>
+</method>
+<method name='pad' fullname='com.hurlant.crypto.symmetric:PKCS5/pad' isStatic='false' isFinal='false' isOverride='false'  param_names='a' param_types='flash.utils:ByteArray' param_defaults='undefined' result_type='void'>
+</method>
+<method name='pbkdf2' fullname='com.hurlant.crypto.symmetric:PKCS5/pbkdf2' isStatic='true' isFinal='false' isOverride='false'  param_names='p;s;c;dkLen' param_types='flash.utils:ByteArray;flash.utils:ByteArray;int;Number' param_defaults='undefined;undefined;undefined;undefined' result_type='flash.utils:ByteArray'>
+<description><![CDATA[
+		 Implementation of the PDKDF2 (public based key derivation
+		 function 2) from PKCS#5 (rfc2898) chapter 5.2.
+		 In this implementation the HMAC-SHA1 will be used as the
+		 PRF (pseudorandom function) with a hLen of 20 Bytes.
+		 		 ]]></description>
+<param><![CDATA[p password
+		 ]]></param>
+<param><![CDATA[s salt
+		 ]]></param>
+<param><![CDATA[c iteration count
+		 ]]></param>
+</method>
+<method name='setBlockSize' fullname='com.hurlant.crypto.symmetric:PKCS5/setBlockSize' isStatic='false' isFinal='false' isOverride='false'  param_names='bs' param_types='uint' param_defaults='undefined' result_type='void'>
+</method>
+<method name='unpad' fullname='com.hurlant.crypto.symmetric:PKCS5/unpad' isStatic='false' isFinal='false' isOverride='false'  param_names='a' param_types='flash.utils:ByteArray' param_defaults='undefined' result_type='void'>
+</method>
+<field name='blockSize' fullname='com.hurlant.crypto.symmetric:PKCS5/private:blockSize' type='uint' isStatic='false' isConst='false' >
+</field>
 <packageRec name='com.hurlant.crypto.symmetric.null' fullname='com.hurlant.crypto.symmetric.null'>
 <description><![CDATA[
  BlowFishKey
@@ -3306,6 +3329,7 @@
  Hex
   Utility class to convert Hex strings to ByteArray or String types.
  Copyright (c) 2007 Henri Torgemane
+ contributed: Alexander Keck
   See LICENSE.txt for full license information.
  ]]></description>
 </packageRec>
@@ -3324,7 +3348,11 @@
 <method name='fromString' fullname='com.hurlant.util:Hex/fromString' isStatic='true' isFinal='false' isOverride='false'  param_names='str;colons;charSet' param_types='String;Boolean;String' param_defaults='undefined;false;utf-8' result_type='String'>
 <description><![CDATA[
 		 Generates hexadecimal string from given string
-		 ]]></description>
+		 		 ]]></description>
+<param><![CDATA[str
+		 ]]></param>
+<return><![CDATA[a hex string encoded from the UTF-8 string str
+		 		 ]]></return>
 </method>
 <method name='toArray' fullname='com.hurlant.util:Hex/toArray' isStatic='true' isFinal='false' isOverride='false'  param_names='hex' param_types='String' param_defaults='undefined' result_type='flash.utils:ByteArray'>
 <description><![CDATA[
@@ -3342,21 +3370,44 @@
 <method name='toString' fullname='com.hurlant.util:Hex/toString' isStatic='true' isFinal='false' isOverride='false'  param_names='hex;charSet' param_types='String;String' param_defaults='undefined;utf-8' result_type='String'>
 <description><![CDATA[
 		 Generates string from given hexadecimal string
-		 ]]></description>
+		 		 ]]></description>
+<param><![CDATA[hex
+		 ]]></param>
+<return><![CDATA[a UTF-8 string decoded from hex
+		 		 ]]></return>
 </method>
 <packageRec name='com.hurlant.util.null' fullname='com.hurlant.util.null'>
 <description><![CDATA[
  ArrayUtil
- 
- A class that allows to compare two ByteArrays.
+  A class that allows to compare two ByteArrays.
  Copyright (c) 2007 Henri Torgemane
- 
- See LICENSE.txt for full license information.
+ contributed: Alexander Keck
+  See LICENSE.txt for full license information.
  ]]></description>
 </packageRec>
 <classRec name='ArrayUtil' fullname='com.hurlant.util:ArrayUtil' sourcefile='/Users/stepanberesnev/Dropbox/Work/as3crypto/src/com/hurlant/util/ArrayUtil.as' namespace='com.hurlant.util' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
 </classRec>
+<method name='encodeIntBigEndian' fullname='com.hurlant.util:ArrayUtil/encodeIntBigEndian' isStatic='true' isFinal='false' isOverride='false'  param_names='n' param_types='Number' param_defaults='undefined' result_type='flash.utils:ByteArray'>
+<description><![CDATA[
+		 This function will encode the integer part (32bit) of the number. The type
+		 Number was choosen to make it possible to use unsigned integers.
+		 		 TODO: check the correctness of signed integer
+		 ]]></description>
+</method>
+<method name='encodeIntLittleEndian' fullname='com.hurlant.util:ArrayUtil/encodeIntLittleEndian' isStatic='true' isFinal='false' isOverride='false'  param_names='n' param_types='Number' param_defaults='undefined' result_type='flash.utils:ByteArray'>
+<description><![CDATA[
+		 This function will encode the integer part (32bit) of the number. The type
+		 Number was choosen to make it possible to use unsigned integers.
+		 		 TODO: check the correctness of signed integer
+		 ]]></description>
+</method>
 <method name='equals' fullname='com.hurlant.util:ArrayUtil/equals' isStatic='true' isFinal='false' isOverride='false'  param_names='a1;a2' param_types='flash.utils:ByteArray;flash.utils:ByteArray' param_defaults='undefined;undefined' result_type='Boolean'>
+</method>
+<method name='xorByteArray' fullname='com.hurlant.util:ArrayUtil/xorByteArray' isStatic='true' isFinal='false' isOverride='false'  param_names='b1;b1start;b2;b2start;len' param_types='flash.utils:ByteArray;int;flash.utils:ByteArray;int;int' param_defaults='undefined;undefined;undefined;undefined;undefined' result_type='flash.utils:ByteArray'>
+<description><![CDATA[
+		 This function xor to ByteArrays and the delivers the result in a new
+		 ByteArray instance with the length __len__.
+		 ]]></description>
 </method>
 <classRec name='Base64' fullname='com.hurlant.util:Base64' sourcefile='/Users/stepanberesnev/Dropbox/Work/as3crypto/src/com/hurlant/util/Base64.as' namespace='com.hurlant.util' access='public' baseclass='Object' isFinal='false' isDynamic='false' >
 </classRec>
