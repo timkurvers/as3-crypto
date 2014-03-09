@@ -894,7 +894,7 @@ package com.hurlant.crypto.tls {
 			// before we tear the connection down.
 
 			if (hasEventListener(IOErrorEvent.IO_ERROR))
-				dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.message, e.errorID));
+				dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.message));
 			close(e);
 		}
 	}
