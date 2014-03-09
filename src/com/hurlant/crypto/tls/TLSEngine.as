@@ -725,15 +725,19 @@ package com.hurlant.crypto.tls {
 			sendRecord(PROTOCOL_APPLICATION_DATA, rec);
 		}
 		private function sendRecord(type:uint, payload:ByteArray):void {
-			// encrypt
-			payload = _currentWriteState.encrypt(type, payload);
-			
-			_oStream.writeByte(type);
-			_oStream.writeShort(_securityParameters.version);
-			_oStream.writeShort(payload.length);
-			_oStream.writeBytes(payload, 0, payload.length);
-			
-			scheduleWrite();
+			try {
+				// encrypt
+				payload = _currentWriteState.encrypt(type, payload);
+				
+				_oStream.writeByte(type);
+				_oStream.writeShort(_securityParameters.version);
+				_oStream.writeShort(payload.length);
+				_oStream.writeBytes(payload, 0, payload.length);
+				
+				scheduleWrite();
+			} catch (e:Error)
+			{
+			}
 		}
 		
 		private var _writeScheduler:uint;
