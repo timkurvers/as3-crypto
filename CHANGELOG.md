@@ -1,5 +1,9 @@
 # Changelog
 
+### v1.4.3 - December 3, 2014
+- SHA2 certificate support
+
+### v1.4.2 - January 10, 2014
 - Patch for Issue54: Submitted Patch for various certificate parsing issues
 
 ### v1.4 - October 2, 2011
