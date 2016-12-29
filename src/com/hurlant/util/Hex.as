@@ -34,13 +34,17 @@ package com.hurlant.util {
 		 */
 		public static function fromArray(array:ByteArray, colons:Boolean=false):String {
 			var s:String = "";
-			for (var i:uint=0;i<array.length;i++) {
-				s+=("0"+array[i].toString(16)).substr(-2,2);
-				if (colons) {
-					if (i<array.length-1) s+=":";
-				}
+			var colon:String = "";
+			var length:uint = array.length;
+			
+			if ( colons ) colon = ":";
+			
+			for ( var i:uint = 0; i < length; i++ ) 
+			{
+				s += ( "0" + array[i].toString(16) ).substr( -2, 2 ) + colon;
 			}
-			return s;
+			
+			return (colons) ? s.substring( 0, s.length-1 ) : s;
 		}
 
 		/**
