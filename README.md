@@ -1,7 +1,5 @@
 # ActionScript 3 Cryptography Library
 
-[<img alt="Supported by FDT" src="http://office.moonsphere.net/supported-by-fdt.png" align="right" />](http://fdt.powerflasher.com)
-
 [![Seeking new maintainer(s)](https://img.shields.io/badge/%E2%9A%A0-seeking_new_maintainer%28s%29-red.svg?style=flat)](https://github.com/timkurvers/as3-crypto/issues/21)
 
 Copyright (c) 2007 Henri Torgemane  
