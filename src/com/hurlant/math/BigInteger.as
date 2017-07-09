@@ -9,7 +9,7 @@
  * 
  * See LICENSE.txt for full license information.
  * 
- * Changes 2010-02-10 Jason von Nieda (jason[at]vonnieda.org)
+ * Changes 2010-02-10 Jason von Nieda (jason&#64;vonnieda.org)
  */
 package com.hurlant.math
 {
@@ -185,7 +185,7 @@ package com.hurlant.math
 			return (s<0)?negate():this;
 		}
 		/**
-		 * return + if this > v, - if this < v, 0 if equal
+		 * return + if this &gt; v, - if this &lt; v, 0 if equal
 		 */
 		public function compareTo(v:BigInteger):int {
 			var r:int = s - v.s;
@@ -238,7 +238,7 @@ package com.hurlant.math
 			return r;
 		}
 		/**
-		 * this^e % m, 0 <= e < 2^32
+		 * this^e % m, 0 &lt;= e &lt; 2^32
 		 */
 		public function modPowInt(e:int, m:BigInteger):BigInteger {
 			var z:IReduction;
@@ -261,7 +261,7 @@ package com.hurlant.math
 			r.s = s;
 		}
 		/**
-		 * set from integer value "value", -DV <= value < DV
+		 * set from integer value "value", -DV &lt;= value &lt; DV
 		 */
 		bi_internal function fromInt(value:int):void {
 			t = 1;
@@ -318,7 +318,7 @@ package com.hurlant.math
 			}
 		}
 		/**
-		 * r = this << n*DB
+		 * r = this &lt;&lt; n&#42;DB
 		 */
 		bi_internal function dlShiftTo(n:int, r:BigInteger):void {
 			var i:int;
@@ -332,7 +332,7 @@ package com.hurlant.math
 			r.s = s;
 		}
 		/**
-		 * r = this >> n*DB
+		 * r = this &gt;&gt; n&#42;DB
 		 */
 		bi_internal function drShiftTo(n:int, r:BigInteger):void {
 			var i:int;
@@ -343,7 +343,7 @@ package com.hurlant.math
 			r.s = s;
 		}
 		/**
-		 * r = this << n
+		 * r = this &lt;&lt; n
 		 */
 		bi_internal function lShiftTo(n:int, r:BigInteger):void {
 			var bs:int = n%DB;
@@ -365,7 +365,7 @@ package com.hurlant.math
 			r.clamp();
 		}
 		/**
-		 * r = this >> n
+		 * r = this &gt;&gt; n
 		 */
 		bi_internal function rShiftTo(n:int, r:BigInteger):void {
 			r.s = s;
@@ -428,9 +428,9 @@ package com.hurlant.math
 			r.clamp();
 		}
 		/**
-		 * am: Compute w_j += (x*this_i), propagates carries,
+		 * am: Compute w_j += (x&#42;this_i), propagates carries,
 		 * c is initial carry, returns final carry.
-		 * c < 3*dvalue, x < 2*dvalue, this_i < dvalue
+		 * c &lt; 3&#42;dvalue, x &lt; 2&#42;dvalue, this_i &lt; dvalue
 		 */
 		bi_internal function am(i:int,x:int,w:BigInteger,j:int,c:int,n:int):int {
 			var xl:int = x&0x7fff;
@@ -446,7 +446,7 @@ package com.hurlant.math
 			return c;
 		}
 		/**
-		 * r = this * v, r != this,a (HAC 14.12)
+		 * r = this &#42; v, r != this,a (HAC 14.12)
 		 * "this" should be the larger one if appropriate
 		 */
 		bi_internal function multiplyTo(v:BigInteger, r:BigInteger):void {
@@ -589,7 +589,7 @@ package com.hurlant.math
 			return ((t>0)?(a[0]&1):s) == 0;
 		}
 		/**
-		 * this^e, e < 2^32, doing sqr and mul with "r" (HAC 14.79)
+		 * this^e, e &lt; 2^32, doing sqr and mul with "r" (HAC 14.79)
 		 */
 		bi_internal function exp(e:int, z:IReduction):BigInteger {
 			if (e > 0xffffffff || e < 1) return ONE;
@@ -675,7 +675,7 @@ package com.hurlant.math
 		
 		/**
 		 * 
-		 * @return value as short (assumes DB>=16)
+		 * @return value as short (assumes DB&gt;=16)
 		 * 
 		 */
 		public function shortValue():int {
@@ -685,7 +685,7 @@ package com.hurlant.math
 		/**
 		 * 
 		 * @param r
-		 * @return x s.t. r^x < DV
+		 * @return x s.t. r^x &lt; DV
 		 * 
 		 */
 		protected function chunkSize(r:Number):int {
@@ -694,7 +694,7 @@ package com.hurlant.math
 		
 		/**
 		 * 
-		 * @return 0 if this ==0, 1 if this >0
+		 * @return 0 if this ==0, 1 if this &gt;0
 		 * 
 		 */
 		public function sigNum():int {
@@ -905,7 +905,7 @@ package com.hurlant.math
 		/**
 		 * 
 		 * @param x
-		 * @return index of lowet 1-bit in x, x < 2^31
+		 * @return index of lowet 1-bit in x, x &lt; 2^31
 		 * 
 		 */
 		private function lbit(x:int):int {
@@ -976,7 +976,7 @@ package com.hurlant.math
 		 * 
 		 * @param n
 		 * @param op
-		 * @return this op (1<<n)
+		 * @return this op (1&lt;&lt;n)
 		 * 
 		 */
 		protected function changeBit(n:int,op:Function):BigInteger {
@@ -988,7 +988,7 @@ package com.hurlant.math
 		/**
 		 * 
 		 * @param n
-		 * @return this | (1<<n)
+		 * @return this | (1&lt;&lt;n)
 		 * 
 		 */
 		public function setBit(n:int):BigInteger { return changeBit(n, op_or); }
@@ -996,7 +996,7 @@ package com.hurlant.math
 		/**
 		 * 
 		 * @param n
-		 * @return this & ~(1<<n)
+		 * @return this &amp; ~(1&lt;&lt;n)
 		 * 
 		 */
 		public function clearBit(n:int):BigInteger { return changeBit(n, op_andnot); }
@@ -1004,7 +1004,7 @@ package com.hurlant.math
 		/**
 		 * 
 		 * @param n
-		 * @return this ^ (1<<n)
+		 * @return this ^ (1&lt;&lt;n)
 		 * 
 		 */
 		public function flipBit(n:int):BigInteger { return changeBit(n, op_xor); }
@@ -1078,7 +1078,7 @@ package com.hurlant.math
 		/**
 		 * 
 		 * @param a
-		 * @return this * a
+		 * @return this &#42; a
 		 * 
 		 */
 		public function multiply(a:BigInteger):BigInteger {
@@ -1120,7 +1120,7 @@ package com.hurlant.math
 		
 		/**
 		 * 
-		 * this *= n, this >=0, 1 < n < DV
+		 * this &#42;= n, this &gt;=0, 1 &lt; n &lt; DV
 		 * 
 		 * @param n
 		 * 
@@ -1133,7 +1133,7 @@ package com.hurlant.math
 		
 		/**
 		 * 
-		 * this += n << w words, this >= 0
+		 * this += n &lt;&lt; w words, this &gt;= 0
 		 * 
 		 * @param n
 		 * @param w
@@ -1167,7 +1167,7 @@ package com.hurlant.math
 		 * 
 		 * @param a
 		 * @param n
-		 * @param r = lower n words of "this * a", a.t <= n
+		 * @param r = lower n words of "this &#42; a", a.t &lt;= n
 		 * 
 		 */
 		bi_internal function multiplyLowerTo(a:BigInteger, n:int, r:BigInteger):void {
@@ -1191,7 +1191,7 @@ package com.hurlant.math
 		 * 
 		 * @param a
 		 * @param n
-		 * @param r = "this * a" without lower n words, n > 0
+		 * @param r = "this &#42; a" without lower n words, n &gt; 0
 		 * 
 		 */
 		bi_internal function multiplyUpperTo(a:BigInteger, n:int, r:BigInteger):void {
@@ -1360,7 +1360,7 @@ package com.hurlant.math
 		/**
 		 * 
 		 * @param n
-		 * @return this % n, n < 2^DB
+		 * @return this % n, n &lt; 2^DB
 		 * 
 		 */
 		protected function modInt(n:int):int {
@@ -1458,7 +1458,7 @@ package com.hurlant.math
 		/**
 		 * 
 		 * @param t
-		 * @return primality with certainty >= 1-.5^t
+		 * @return primality with certainty &gt;= 1-.5^t
 		 * 
 		 */
 		public function isProbablePrime(t:int):Boolean {

@@ -148,6 +148,16 @@ package com.hurlant.util.der
 					var ut:UTCTime = new UTCTime(type, len);
 					ut.setUTCTime(der.readMultiByte(len, "US-ASCII"));
 					return ut;
+				case 0x0C: // V_ASN1_UTF8STRING
+					// support for type 12
+					ps = new PrintableString(type, len);
+					ps.setString(der.readMultiByte(len, "utf-8"));
+					return ps;
+				case 0x16: // V_ASN1_IA5STRING
+					// support for type 22
+					ps = new PrintableString(type, len);
+					ps.setString(der.readMultiByte(len, "x-IA5"));
+					return ps;
 			}
 		}
 		

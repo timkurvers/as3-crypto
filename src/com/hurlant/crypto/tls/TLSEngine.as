@@ -5,7 +5,7 @@
  * See comment below for some details.
  * Copyright (c) 2007 Henri Torgemane
  * 
- * Patched(heavily) by Bobby Parker (shortwave[at]gmail.com)
+ * Patched(heavily) by Bobby Parker (shortwave&#64;gmail.com)
  * 
  * See LICENSE.txt for full license information.
  */
@@ -18,6 +18,7 @@ package com.hurlant.crypto.tls {
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.utils.ByteArray;
 	import flash.utils.IDataInput;
@@ -26,6 +27,7 @@ package com.hurlant.crypto.tls {
 	import flash.utils.setTimeout;
 
 	[Event(name="close", type="flash.events.Event")]
+	[Event(name="ioError", type="flash.events.IOErrorEvent")]
 	[Event(name="socketData", type="flash.events.ProgressEvent")]
 	[Event(name="ready", type="com.hurlant.crypto.tls.TLSEvent")]
 	[Event(name="data", type="com.hurlant.crypto.tls.TLSEvent")]
@@ -723,15 +725,19 @@ package com.hurlant.crypto.tls {
 			sendRecord(PROTOCOL_APPLICATION_DATA, rec);
 		}
 		private function sendRecord(type:uint, payload:ByteArray):void {
-			// encrypt
-			payload = _currentWriteState.encrypt(type, payload);
-			
-			_oStream.writeByte(type);
-			_oStream.writeShort(_securityParameters.version);
-			_oStream.writeShort(payload.length);
-			_oStream.writeBytes(payload, 0, payload.length);
-			
-			scheduleWrite();
+			try {
+				// encrypt
+				payload = _currentWriteState.encrypt(type, payload);
+				
+				_oStream.writeByte(type);
+				_oStream.writeShort(_securityParameters.version);
+				_oStream.writeShort(payload.length);
+				_oStream.writeBytes(payload, 0, payload.length);
+				
+				scheduleWrite();
+			} catch (e:Error)
+			{
+			}
 		}
 		
 		private var _writeScheduler:uint;
@@ -816,9 +822,9 @@ package com.hurlant.crypto.tls {
 				} else {
 					// use regex to handle wildcard certs
 					var commonName:String = firstCert.getCommonName();
-					// replace all regex special characters with escaped version, except for asterisk
-					// replace the asterisk with a regex sequence to match one or more non-dot characters
-					var commonNameRegex:RegExp = new RegExp( commonName.replace(/[\^\\\-$.[\]|()?+{}]/g, "\\$&").replace(/\*/g, "[^.]+"), "gi");
+					// replace the asterisk and first dot with a regex sequence to match one or more non-dot characters followed by a dot
+					// this allows the wildcard cert to match a naked domain ( mydomain.com ) and subdomains (sub.mydomain.com)
+					var commonNameRegex:RegExp = new RegExp( commonName.replace(/[\^\\\-$.[\]|()?+{}]/g, "\\$&").replace(/\*\\\./g, "([^.]+\.)?"), "gi");
 					if (commonNameRegex.exec(_otherIdentity)) {
 						_otherCertificate = firstCert;
 					} else {
@@ -886,7 +892,9 @@ package com.hurlant.crypto.tls {
 			// - TLSErrors are always fatal.
 			// BP: Meh...not always. Common Name mismatches appear to be common on servers. Instead of closing, let's pause, and ask for confirmation 
 			// before we tear the connection down.
-			
+
+			if (hasEventListener(IOErrorEvent.IO_ERROR))
+				dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.message));
 			close(e);
 		}
 	}

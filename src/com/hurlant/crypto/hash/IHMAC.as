@@ -1,7 +1,7 @@
 /**
  * HMAC
  * 
- * An ActionScript 3 interface for HMAC & MAC 
+ * An ActionScript 3 interface for HMAC &amp; MAC 
  * implementations.
  * 
  * Loosely copyrighted by Bobby Parker

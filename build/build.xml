@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="as3crypto" default="build" basedir="..">
+	<target name="init">
+		<property file="build/build.properties" />
+		<property file="build/project.properties" />
+	    <taskdef resource="flexTasks.tasks" classpath="${sdk.dir}/ant/lib/flexTasks.jar" />
+	</target>
+	
+	<target name="lib_swc">
+	 	<compc fork="true" debug="true" output="${release.dir}/${project.name}.swc">
+	 		<source-path path-element="${src.dir}" />
+	 		<include-sources dir="${src.dir}" includes="*"/>
+	 		<compiler.external-library-path dir="${lib.dir}" append="true">
+	 			<include name="*.swc" />
+	 	    </compiler.external-library-path>
+	 	</compc>
+	</target>
+	
+	<target name="lib_docs">
+		<echo message="Generating ASDoc"/>
+		
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${temp.doc.dir}" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+	 			<include name="*.swc" />
+	 	    </compiler.external-library-path>
+			<doc-sources path-element="${basedir}/src"/>
+		    <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+		
+		<echo message="Attaching ASDoc to Lib SWC"/>
+		
+		<!-- updates framework.swc with asdoc xml -->
+		<zip destfile="${release.dir}/${project.name}.swc" update="true">
+		    <zipfileset dir="${temp.doc.dir}/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+		
+		<delete dir="${temp.doc.dir}" failonerror="false" includeEmptyDirs="true"/>
+	</target>	
+    
+    <target name="asdocs" depends="init">
+		<delete dir="${asdoc.dir}" failonerror="false" includeEmptyDirs="true"/>
+		
+		<echo message="Generating ASDoc"/>
+		
+		<asdoc output="${asdoc.dir}" lenient="true" failonerror="true" keep-xml="true" date-in-footer="false" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+			<compiler.external-library-path dir="${lib.dir}" append="true">
+	 			<include name="*.swc" />
+	 	    </compiler.external-library-path>
+			<doc-sources path-element="${basedir}/src"/>
+		    <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+		
+		<delete dir="${basedir}/docs/tempdita" failonerror="false" includeEmptyDirs="true"/>
+	</target>
+	
+	<!-- Parameters -->
+	<target name="build" depends="init" description="">
+		<echo message="Building version ${project.name}.swc to ${release.dir}" />
+		
+		<antcall target="lib_swc" />
+		<antcall target="lib_docs" />
+		<antcall target="asdocs" />
+		
+		<echo message="Build Complete!" />
+	</target>
+	
+</project>

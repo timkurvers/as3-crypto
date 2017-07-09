@@ -100,6 +100,7 @@ package com.hurlant.util.der
 		// Attributes
 		public static const id_at_commonName:OIDType = oid( id_at, 3 );
 		public static const id_at_surname:OIDType = oid( id_at, 4 );
+		public static const id_at_serialNumber:OIDType = oid( id_at, 5 );
 		public static const id_at_countryName:OIDType = oid( id_at, 6 );		
 		public static const id_at_localityName:OIDType = oid( id_at, 7 );
 		public static const id_at_stateOrProvinceName:OIDType = oid( id_at, 8 );
@@ -175,11 +176,12 @@ package com.hurlant.util.der
 		// Directory string type, used extensively in Name types
 		public static const directoryString:Function = function(maxSize:int):ASN1Type {
 			return choice(
-				{ teletexString: teletexString(1,maxSize) },
 				{ printableString: printableString(1,maxSize) },
+				{ utf8String: utf8String(1,maxSize) },
 				{ universalString: universalString(1,maxSize) },
 				{ bmpString: bmpString(1,maxSize) },
-				{ utf8String: utf8String(1,maxSize) }
+				{ utf8String: utf8String(1,maxSize) },
+				{ ia5String: ia5String(1,maxSize) }
 			);
 		};
 		
@@ -222,7 +224,7 @@ package com.hurlant.util.der
 			)},
 			{ countryName: sequence(
 				{ type: id_at_countryName },
-				{ value: printableString(2) } // IS 3166 codes only
+				{ value: directoryString(2) } // IS 3166 codes only
 			)},
 			{ localityName: sequence(
 				{ type: id_at_localityName },
@@ -243,6 +245,10 @@ package com.hurlant.util.der
 			{ title: sequence(
 				{ type: id_at_title },
 				{ value: directoryString(ub_title) }
+			)},
+			{ serialNumber: sequence(
+				{ type: id_at_serialNumber },
+				{ value: printableString() }
 			)},
 			// Legacy attributes
 			{ pkcs9email: sequence(

@@ -162,7 +162,7 @@ package com.hurlant.crypto.symmetric
 		 * generate an integer based working key based on our secret key and what we
 		 * processing we are planning to do.
 		 * 
-		 * Acknowledgements for this routine go to James Gillogly & Phil Karn.
+		 * Acknowledgements for this routine go to James Gillogly &amp; Phil Karn.
 		 */
 		protected function generateWorkingKey(encrypting:Boolean, key:ByteArray, off:uint):Array
 		{

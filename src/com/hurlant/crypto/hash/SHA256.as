@@ -50,14 +50,14 @@ package com.hurlant.crypto.hash
 			x[((len + 64 >> 9) << 4) + 15] = len;
 		
 			var w:Array = [];
-			var a:uint = h[0];
-			var b:uint = h[1];
-			var c:uint = h[2];
-			var d:uint = h[3];
-			var e:uint = h[4];
-			var f:uint = h[5];
-			var g:uint = h[6];
-			var h:uint = h[7];
+			var a:uint = this.h[0];
+			var b:uint = this.h[1];
+			var c:uint = this.h[2];
+			var d:uint = this.h[3];
+			var e:uint = this.h[4];
+			var f:uint = this.h[5];
+			var g:uint = this.h[6];
+			var h:uint = this.h[7];
 			
 			for (var i:uint=0; i<x.length; i+=16) {
 				var olda:uint = a;

@@ -12,6 +12,7 @@ package com.hurlant.crypto.cert {
 	import com.hurlant.crypto.hash.MD2;
 	import com.hurlant.crypto.hash.MD5;
 	import com.hurlant.crypto.hash.SHA1;
+	import com.hurlant.crypto.hash.SHA256;
 	import com.hurlant.crypto.rsa.RSAKey;
 	import com.hurlant.util.ArrayUtil;
 	import com.hurlant.util.Base64;
@@ -115,6 +116,10 @@ package com.hurlant.crypto.cert {
 				case OID.MD5_WITH_RSA_ENCRYPTION:
 					hash = new MD5;
 					oid = OID.MD5_ALGORITHM;
+					break;
+				case OID.SHA2_WITH_RSA_ENCRYPTION:
+					hash = new SHA256();
+					oid = OID.SHA2_ALGORITHM;
 					break;
 				default:
 					return false;

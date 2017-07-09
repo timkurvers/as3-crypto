@@ -1,5 +1,11 @@
 # Changelog
 
+### v1.4.3 - December 3, 2014
+- SHA2 certificate support
+
+### v1.4.2 - January 10, 2014
+- Patch for Issue54: Submitted Patch for various certificate parsing issues
+
 ### v1.4 - October 2, 2011
 - Implemented [Jason von Nieda's BigInteger bug-fixes](http://groups.google.com/group/as3crypto/browse_thread/thread/92688a271a397bd0) and unit-tests.
 - Added [Joey Parrish' bug-fixes](http://groups.google.com/group/as3crypto/browse_thread/thread/ce57305fbeaaf08f) for `TLSEngine.sendApplicationData`
