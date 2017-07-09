@@ -147,7 +147,8 @@ package com.hurlant.util.asn1.type {
 		}
 		
 		protected function fromDERContent(s:ByteArray, length:int):* {
-			throw new Error("pure virtual function call: fromDERContent");
+			return s.readBoolean();
+			//throw new Error("pure virtual function call: fromDERContent");
 		}
 		
 		protected function readDERTag(s:ByteArray, classValue:int=UNIVERSAL, 
